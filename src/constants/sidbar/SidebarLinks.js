@@ -4,6 +4,7 @@ import Dashboard from "@/components/icons/sidebar/Dashboard";
 import Logout from "@/components/icons/sidebar/Logout";
 import MyProducts from "@/components/icons/sidebar/MyProducts";
 import PaymentPlan from "@/components/icons/sidebar/PaymentPlan";
+import PaymentPlanActive from "@/components/icons/sidebar/PaymentPlanActive";
 import SwitchProfile from "@/components/icons/sidebar/SwitchProfile";
 
 export const SidebarLinks = [
@@ -21,6 +22,7 @@ export const SidebarLinks = [
     },
         {
         icon: PaymentPlan ,
+        activeIcon: PaymentPlanActive,
         title: "Payment Plan"
     },
         {
