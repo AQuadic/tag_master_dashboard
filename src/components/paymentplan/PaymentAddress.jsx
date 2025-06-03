@@ -1,15 +1,3 @@
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import CardName from "../icons/paymentplan/CardName";
-import CardNumber from "../icons/paymentplan/CardNumber";
-
 const PaymentAddress = () => {
     return (
         <section>
@@ -22,76 +10,11 @@ const PaymentAddress = () => {
                             <th scope="col" className="px-2 py-3">Address</th>
                             <th scope="col" className="px-2 py-3">Zip code</th>
                             <th scope="col" className="px-2 py-3">
-                                <Dialog>
-                                    <form>
-                                        <DialogTrigger asChild>
-                                            <button
-                                                className="w-[136px] h-[47px] border border-[#002847] text-[#002847] text-lg font-medium rounded-[12px]"
-                                            >
-                                                Add Address
-                                            </button>
-                                        </DialogTrigger>
-                                        <DialogContent className="sm:max-w-[500px] m-8">
-                                            <DialogHeader>
-                                                <DialogTitle className="text-[#000000] text-2xl font-medium mx-auto">Payment method details</DialogTitle>
-                                            </DialogHeader>
-                                            <div className="grid gap-4 px-2">
-                                                <div className="relative">
-                                                    <label htmlFor="name" className="text-[#777777] text-lg">Card Name*</label>
-                                                    <input
-                                                        type="text"
-                                                        name="number"
-                                                        id="number"
-                                                        placeholder="ABCD  ABCD  ABCD"
-                                                        className="w-[450px] h-[58px] border rounded-[8px] mt-2 px-10"
-                                                    />
-                                                    <div className="absolute top-[55%] left-2">
-                                                        <CardName />
-                                                    </div>
-                                                </div>
-                                                <div className="relative">
-                                                    <label htmlFor="name" className="text-[#777777] text-lg">Card Number*</label>
-                                                    <input
-                                                        type="text"
-                                                        name="number"
-                                                        id="number"
-                                                        placeholder="1234  5678  1122  4554"
-                                                        className="w-[450px] h-[58px] border rounded-[8px] mt-2 px-12"
-                                                    />
-                                                    <div className="absolute top-[55%] left-2">
-                                                        <CardNumber />
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex flex-col">
-                                                        <label htmlFor="name" className="text-[#777777] text-lg">Card Number*</label>
-                                                        <input
-                                                            type="text"
-                                                            name="number"
-                                                            id="number"
-                                                            placeholder="00 / 00"
-                                                            className="w-[119px] h-[58px] border rounded-[8px] mt-2 px-2"
-                                                        />
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <label htmlFor="name" className="text-[#777777] text-lg">Cvv*</label>
-                                                        <input
-                                                            type="text"
-                                                            name="number"
-                                                            id="number"
-                                                            placeholder="123"
-                                                            className="w-[119px] h-[58px] border rounded-[8px] mt-2 px-2"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <DialogFooter>
-                                                <DialogClose asChild>
-                                                </DialogClose>
-                                            </DialogFooter>
-                                        </DialogContent>
-                                    </form>
-                                </Dialog>
+                                <button
+                                    className="w-[136px] h-[47px] border border-[#002847] text-[#002847] text-lg font-medium rounded-[12px]"
+                                >
+                                    Add Address
+                                </button>
                             </th>
                         </tr>
                     </thead>
