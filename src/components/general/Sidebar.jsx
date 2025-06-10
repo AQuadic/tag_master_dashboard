@@ -22,7 +22,7 @@ const Sidebar = () => {
   return (
     <div className="flex container">
       <aside className="flex-shrink-0">
-        <div className="xl:w-[358px] w-20 h-[calc(100dvh-120px)] bg-[#002847] rounded-2xl mt-6 ml-6 flex flex-col xl:p-14 p-3">
+        <div className="xl:w-[358px] w-20 min-h-[calc(100dvh-120px)] bg-[#002847] rounded-2xl mt-6 ml-6 flex flex-col xl:p-14 p-3">
           <div className="flex flex-col gap-10">
             {topLinks.map(
               ({ icon: Icon, activeIcon: ActiveIcon, title }, index) => (
