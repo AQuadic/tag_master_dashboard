@@ -1,5 +1,6 @@
 import ActiveAnalytics from "@/components/icons/sidebar/ActiveAnalytics";
 import ActiveDashboard from "@/components/icons/sidebar/ActiveDashboard";
+import ActiveProfile from "@/components/icons/sidebar/ActiveProfile";
 import Analytics from "@/components/icons/sidebar/Analytics";
 import CreateProfile from "@/components/icons/sidebar/CreateProfile";
 import Dashboard from "@/components/icons/sidebar/Dashboard";
@@ -22,6 +23,7 @@ export const SidebarLinks = [
     },
         {
         icon: CreateProfile ,
+        activeIcon: ActiveProfile,
         title: "Create Profile"
     },
         {

@@ -1,5 +1,6 @@
 import { SidebarLinks } from "@/constants/sidbar/SidebarLinks";
 import Analytics from "@/pages/Analytics";
+import CreateProfile from "@/pages/CreateProfile";
 import Dashboard from "@/pages/Dashboard";
 import PaymentPlan from "@/pages/paymentPlan";
 import { useState } from "react";
@@ -20,7 +21,8 @@ const Sidebar = () => {
   const componentMap = {
     "Payment Plan": <PaymentPlan />,
     "Dashboard": <Dashboard />,
-    "Analytics": <Analytics />
+    "Analytics": <Analytics />,
+    "Create Profile": <CreateProfile />
   };
 
   return (
