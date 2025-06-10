@@ -29,7 +29,7 @@ const ProfileHeader = () => {
                                         type="text"
                                         name="number"
                                         id="number"
-                                        placeholder="Ali Elsayed"
+                                        placeholder="Name"
                                         className="md:w-[450px] w-full h-[58px] border rounded-[8px] mt-2 px-10"
                                     />
                                     <div className="absolute top-[35%] left-2">
@@ -42,7 +42,7 @@ const ProfileHeader = () => {
                                         type="text"
                                         name="email"
                                         id="email"
-                                        placeholder="info@ali.com"
+                                        placeholder="Email"
                                         className="md:w-[450px] w-full h-[58px] border rounded-[8px] mt-2 px-10"
                                     />
                                     <div className="absolute top-[45%] left-2">
@@ -64,14 +64,14 @@ const ProfileHeader = () => {
                                 </div>
 
                                 <div className="relative">
-                                    <input type="password" name="password" id="password" className="md:w-[450px] w-full h-[58px] border rounded-[8px] mt-6 px-9" placeholder="**********" />
+                                    <input type="password" name="password" id="password" className="md:w-[450px] w-full h-[58px] border rounded-[8px] mt-6 px-9" placeholder="Password" />
                                     <div className="absolute top-[50%] left-2">
                                         <Lock />
                                     </div>
                                 </div>
 
                                 <div className="relative">
-                                    <input type="password" name="password" id="password" className="md:w-[450px] w-full h-[58px] border rounded-[8px] mt-6 px-9" placeholder="**********" />
+                                    <input type="password" name="password" id="password" className="md:w-[450px] w-full h-[58px] border rounded-[8px] mt-6 px-9" placeholder="Password" />
                                     <div className="absolute top-[50%] left-2">
                                         <Lock />
                                     </div>
