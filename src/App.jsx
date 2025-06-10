@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Layout from "./components/general/Layout";
 import SignIn from "./pages/auth/SignIn";
 import ForgetPassword from "./pages/auth/ForgetPassword";
+import EnterCode from "./pages/auth/EnterCode";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         </Route>
         <Route path="signin" element={<SignIn />} />
         <Route path="forgetpassword" element={<ForgetPassword />} />
+        <Route path="entercode" element={<EnterCode />} />
       </Routes>
     </BrowserRouter>
   );
