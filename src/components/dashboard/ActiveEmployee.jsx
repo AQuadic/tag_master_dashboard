@@ -47,9 +47,9 @@ const ActiveEmployee = () => {
     ]
 
     return (
-        <section className="w-[360px] h-full border border-[#000000] rounded-2xl flex flex-col p-6 mt-4 md:mt-0">
+        <section className="w-[360px] h-full border border-[#000000] rounded-2xl flex flex-col p-8 mt-4 md:mt-0">
             <h1 className="text-[#000000] text-2xl font-medium mx-auto">Active employees</h1>
-            <div className='mt-[11px] flex flex-col gap-8'>
+            <div className='mt-5 flex flex-col gap-8'>
                 {EmployeeData.map((employee, index) => (
                     <div key={index} className='flex items-center gap-[11px]'>
                         <div className="relative">
