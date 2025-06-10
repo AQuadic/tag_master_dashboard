@@ -1,4 +1,5 @@
 import { SidebarLinks } from "@/constants/sidbar/SidebarLinks";
+import Dashboard from "@/pages/Dashboard";
 import PaymentPlan from "@/pages/paymentPlan";
 import { useState } from "react";
 
@@ -17,6 +18,7 @@ const Sidebar = () => {
 
   const componentMap = {
     "Payment Plan": <PaymentPlan />,
+    "Dashboard": <Dashboard />
   };
 
   return (
@@ -28,11 +30,10 @@ const Sidebar = () => {
               ({ icon: Icon, activeIcon: ActiveIcon, title }, index) => (
                 <div
                   key={index}
-                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${
-                    activeComponent === title
+                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${activeComponent === title
                       ? "bg-[#E6F3F9] shadow-md"
                       : "hover:bg-[#E6F3F9]"
-                  }`}
+                    }`}
                   onClick={() => handleItemClick(title)}
                 >
                   <div className="mr-3">
@@ -40,20 +41,18 @@ const Sidebar = () => {
                       <ActiveIcon className={`transition-colors text-black`} />
                     ) : (
                       <Icon
-                        className={`transition-colors ${
-                          activeComponent === title
+                        className={`transition-colors ${activeComponent === title
                             ? "text-black"
                             : "text-[#EDEDED]"
-                        }`}
+                          }`}
                       />
                     )}
                   </div>
                   <p
-                    className={`text-xl font-medium transition-colors xl:flex hidden ${
-                      activeComponent === title
+                    className={`text-xl font-medium transition-colors xl:flex hidden ${activeComponent === title
                         ? "text-black"
                         : "text-[#EDEDED] group-hover:text-black"
-                    }`}
+                      }`}
                   >
                     {title}
                   </p>
@@ -67,11 +66,10 @@ const Sidebar = () => {
               ({ icon: Icon, activeIcon: ActiveIcon, title }, index) => (
                 <div
                   key={index}
-                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${
-                    activeComponent === title
+                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${activeComponent === title
                       ? "bg-[#E6F3F9] shadow-md"
                       : "hover:bg-[#E6F3F9]"
-                  }`}
+                    }`}
                   onClick={() => handleItemClick(title)}
                 >
                   <div className="mr-3">
@@ -79,20 +77,18 @@ const Sidebar = () => {
                       <ActiveIcon className={`transition-colors text-black`} />
                     ) : (
                       <Icon
-                        className={`transition-colors ${
-                          activeComponent === title
+                        className={`transition-colors ${activeComponent === title
                             ? "text-black"
                             : "text-[#EDEDED]"
-                        }`}
+                          }`}
                       />
                     )}
                   </div>
                   <p
-                    className={`text-xl font-medium transition-colors xl:flex hidden ${
-                      activeComponent === title
+                    className={`text-xl font-medium transition-colors xl:flex hidden ${activeComponent === title
                         ? "text-black"
                         : "text-[#EDEDED] group-hover:text-black"
-                    }`}
+                      }`}
                   >
                     {title}
                   </p>

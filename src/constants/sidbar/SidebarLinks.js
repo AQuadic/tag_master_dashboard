@@ -1,3 +1,4 @@
+import ActiveDashboard from "@/components/icons/sidebar/ActiveDashboard";
 import Analytics from "@/components/icons/sidebar/Analytics";
 import CreateProfile from "@/components/icons/sidebar/CreateProfile";
 import Dashboard from "@/components/icons/sidebar/Dashboard";
@@ -10,6 +11,7 @@ import SwitchProfile from "@/components/icons/sidebar/SwitchProfile";
 export const SidebarLinks = [
     {
         icon: Dashboard ,
+        activeIcon: ActiveDashboard,
         title: "Dashboard"
     },
         {
