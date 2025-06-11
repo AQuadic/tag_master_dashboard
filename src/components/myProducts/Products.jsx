@@ -1,26 +1,19 @@
 import { useState } from "react"
-import fproduct from '/images/Products/fproduct.png'
-import sproduct from '/images/Products/sproduct.png'
-import tproduct from '/images/Products/tproduct.png'
-import ActiveStatus from "../icons/dashboard/ActiveStatus"
+// import ActiveStatus from "../icons/dashboard/ActiveStatus"
 import EmptyState from "./EmptyState"
+import { useQuery } from "react-query"
+import { getProducts } from "../api/products"
 const Products = () => {
     const [activeProducts, setActiveProducts] = useState("All Product")
     const productsFilter = ["All Product", "NFC Business Card", "Poket NFC Cardholder", "NFC Sticker"]
-    const cardData = [
-        {
-            image: fproduct,
-            title: 'Tap NFC Business Card - Share Everything'
+
+    const { data: products = [] } = useQuery({
+        queryKey: ["products"],
+        queryFn: async () => {
+            const response = await getProducts();
+            return response.data || [];
         },
-        {
-            image: sproduct,
-            title: 'Tap NFC Business Card - Share Everything'
-        },
-        {
-            image: tproduct,
-            title: 'Tap NFC Business Card - Share Everything'
-        },
-    ]
+    });
     return (
         <section>
             <div className="flex flex-wrap items-center gap-5">
@@ -38,16 +31,29 @@ const Products = () => {
                 ))}
             </div>
             <div className="mt-[26px] flex flex-wrap items-center gap-[42px]">
-                {cardData.map((product, index) => (
+                {products.map((product, index) => (
                     <div key={index} className="md:w-[275px] w-full">
                         <img
-                            src={product.image}
+                            src={product?.images?.[0]?.url}
                             alt="Product"
-                            className="w-full rounded-tr-[12px] rounded-tl-[12px]"
+                            className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px]"
                         />
                         <div className="h-full pb-2 border-b border-r border-l border-[#000000] rounded-b-[12px] px-3">
-                            <p className="text-[#000000] text-xs pt-1.5">{product.title}</p>
-                            <div className="flex items-center gap-6 mt-2">
+                            <p className="text-[#000000] text-xs pt-1.5">{product.name.en}</p>
+                            <div className="mt-2">
+                                <p className="text-sm text-black font-medium">
+                                    Price: {product.price}
+                                </p>
+
+                                {product.options?.length > 0 && (
+                                    <div className={`text-xs font-medium mt-1 ${product.options.some(option => option.in_stock) ? 'text-green-600' : 'text-red-600'}`}>
+                                        {product.options.some(option => option.in_stock) ? 'In Stock' : 'Out of Stock'}
+                                    </div>
+                                )}
+
+                            </div>
+
+                            {/* <div className="flex items-center gap-6 mt-2">
                                 <div className="flex items-center gap-2">
                                     <p className="text-[#7B7E80] text-[10px]">(5)</p>
                                     <div className="flex items-center">
@@ -72,7 +78,7 @@ const Products = () => {
                                     <p className="text-[#000000] text-[10px]">Active</p>
                                     <ActiveStatus />
                                 </div>
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>
