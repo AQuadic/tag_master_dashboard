@@ -3,7 +3,15 @@ import Instagram from '../icons/myaccount/Instagram'
 import LinkedIn from '../icons/myaccount/LinkedIn'
 import Tiktok from '../icons/myaccount/Tiktok'
 import Whatsapp from '../icons/myaccount/Whatsapp'
+import AddLink from './AddLink'
 import emptyLinks from '/images/Account/emptyLinks.png'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 const ManageLinks = () => {
     const LinksData = [
@@ -30,9 +38,20 @@ const ManageLinks = () => {
     ]
     return (
         <section>
-            <div className="mt-7 flex justify-end">
-                <button className="w-[140px] h-14 border-2 border-[#002847] rounded-[50px]">Add link</button>
-            </div>
+            <Dialog>
+                <DialogTrigger className='ml-auto flex'>
+                    <div className="mt-7 flex justify-end">
+                        <button className="w-[140px] h-14 border-2 border-[#002847] rounded-[50px]">Add link</button>
+                    </div>
+                </DialogTrigger>
+                <DialogContent className='lg:!max-w-[900px] w-full h-full overflow-auto'>
+                    <DialogHeader>
+                        <DialogDescription>
+                            <AddLink />
+                        </DialogDescription>
+                    </DialogHeader>
+                </DialogContent>
+            </Dialog>
 
             <div className='flex justify-center hidden'>
                 <img src={emptyLinks} className='md:w-[600px] w-full md:h-[600px] h-full' alt="Empty state" />
