@@ -1,3 +1,4 @@
+import ActiveAccount from "@/components/icons/sidebar/ActiveAccount";
 import ActiveAnalytics from "@/components/icons/sidebar/ActiveAnalytics";
 import ActiveDashboard from "@/components/icons/sidebar/ActiveDashboard";
 import ActiveProducts from "@/components/icons/sidebar/ActiveProducts";
@@ -31,6 +32,11 @@ export const SidebarLinks = [
         icon: PaymentPlan ,
         activeIcon: PaymentPlanActive,
         title: "Payment Plan"
+    },
+        {
+        icon: PaymentPlan ,
+        activeIcon: ActiveAccount,
+        title: "My Account"
     },
         {
         icon: MyProducts ,

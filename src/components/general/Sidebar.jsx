@@ -2,6 +2,7 @@ import { SidebarLinks } from "@/constants/sidbar/SidebarLinks";
 import Analytics from "@/pages/Analytics";
 import CreateProfile from "@/pages/CreateProfile";
 import Dashboard from "@/pages/Dashboard";
+import MyAccount from "@/pages/MyAccount";
 import MyProducts from "@/pages/MyProducts";
 import PaymentPlan from "@/pages/PaymentPlan";
 import { useState } from "react";
@@ -24,7 +25,8 @@ const Sidebar = () => {
     "Dashboard": <Dashboard />,
     "Analytics": <Analytics />,
     "Create Profile": <CreateProfile />,
-    "My Products": <MyProducts />
+    "My Products": <MyProducts />,
+    "My Account": <MyAccount />
   };
 
   return (
