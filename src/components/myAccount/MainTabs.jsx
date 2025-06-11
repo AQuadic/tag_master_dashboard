@@ -7,7 +7,7 @@ const MainTabs = () => {
         <section>
             <div className="flex w-full  flex-col gap-6">
                 <Tabs defaultValue="edit">
-                    <TabsList className="md:w-md">
+                    <TabsList className="md:w-md w-full md:flex-row flex-col h-full">
                         <TabsTrigger value="edit">Edit profile</TabsTrigger>
                         <TabsTrigger value="manageLinks">Manage links</TabsTrigger>
                         <TabsTrigger value="manageTheme">Manae theme</TabsTrigger>
