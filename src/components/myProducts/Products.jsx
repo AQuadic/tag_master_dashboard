@@ -3,7 +3,7 @@ import fproduct from '/images/Products/fproduct.png'
 import sproduct from '/images/Products/sproduct.png'
 import tproduct from '/images/Products/tproduct.png'
 import ActiveStatus from "../icons/dashboard/ActiveStatus"
-import emptyCart from '/images/Products/emptyCart.png'
+import EmptyState from "./EmptyState"
 const Products = () => {
     const [activeProducts, setActiveProducts] = useState("All Product")
     const productsFilter = ["All Product", "NFC Business Card", "Poket NFC Cardholder", "NFC Sticker"]
@@ -79,13 +79,7 @@ const Products = () => {
                 ))}
             </div>
 
-            <div className="flex flex-col items-center justify-center mt-32">
-                <img src={emptyCart} alt="Empty cart" />
-                <h2 className="text-[#9C9C9C] text-[28px] font-medium text-center">You have no products yet.</h2>
-                <p className="text-[#000000] text-[22px] font-medium">New products appear here.</p>
-            </div>
-
-
+            <EmptyState />
 
 
             <div className="flex items-center justify-center mt-32">
