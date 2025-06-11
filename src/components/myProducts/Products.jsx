@@ -2,7 +2,7 @@ import { useState } from "react"
 // import ActiveStatus from "../icons/dashboard/ActiveStatus"
 import EmptyState from "./EmptyState"
 import { useQuery } from "react-query"
-import { getProducts } from "../api/products"
+import { getProducts } from "@/api/products"
 const Products = () => {
     const [activeProducts, setActiveProducts] = useState("All Product")
     const productsFilter = ["All Product", "NFC Business Card", "Poket NFC Cardholder", "NFC Sticker"]
