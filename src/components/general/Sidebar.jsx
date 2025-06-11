@@ -7,12 +7,16 @@ import MyProducts from "@/pages/MyProducts";
 import PaymentPlan from "@/pages/PaymentPlan";
 import { useState, useRef } from "react";
 import SwitchProfile from "../switchAccount/SwitchProfile";
+import LogoutConfirm from "../logout/LogoutConfirm";
 
 const Sidebar = () => {
   const [activeComponent, setActiveComponent] = useState("Dashboard");
   const [showSwitchPopup, setShowSwitchPopup] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [switchProfilePosition, setSwitchProfilePosition] = useState({ top: 0, left: 0 });
+  const [logoutPosition, setLogoutPosition] = useState({ top: 0, left: 0 });
   const switchProfileRef = useRef(null);
+  const logoutRef = useRef(null);
   const topLinks = SidebarLinks.slice(0, SidebarLinks.length - 2);
   const bottomLinks = SidebarLinks.slice(-2);
 
@@ -26,11 +30,21 @@ const Sidebar = () => {
         });
       }
       setShowSwitchPopup(!showSwitchPopup);
+      setShowLogoutPopup(false);
     } else if (title === "Logout") {
-      console.log("Logout clicked");
+      if (logoutRef.current) {
+        const rect = logoutRef.current.getBoundingClientRect();
+        setLogoutPosition({
+          top: rect.top,
+          left: rect.right + 10
+        });
+      }
+      setShowLogoutPopup(!showLogoutPopup);
+      setShowSwitchPopup(false);
     } else {
       setActiveComponent(title);
       setShowSwitchPopup(false);
+      setShowLogoutPopup(false);
     }
   };
 
@@ -92,8 +106,8 @@ const Sidebar = () => {
               ({ icon: Icon, activeIcon: ActiveIcon, title }, index) => (
                 <div
                   key={index}
-                  ref={title === "Switch Profile" ? switchProfileRef : null}
-                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${title === "Switch Profile" && showSwitchPopup
+                  ref={title === "Switch Profile" ? switchProfileRef : title === "Logout" ? logoutRef : null}
+                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${(title === "Switch Profile" && showSwitchPopup) || (title === "Logout" && showLogoutPopup)
                     ? "bg-[#E6F3F9] shadow-md"
                     : activeComponent === title
                       ? "bg-[#E6F3F9] shadow-md"
@@ -102,11 +116,15 @@ const Sidebar = () => {
                   onClick={() => handleItemClick(title)}
                 >
                   <div className="mr-3">
-                    {((activeComponent === title && ActiveIcon) || (title === "Switch Profile" && showSwitchPopup && ActiveIcon)) ? (
+                    {((activeComponent === title && ActiveIcon) ||
+                      (title === "Switch Profile" && showSwitchPopup && ActiveIcon) ||
+                      (title === "Logout" && showLogoutPopup && ActiveIcon)) ? (
                       <ActiveIcon className={`transition-colors text-black`} />
                     ) : (
                       <Icon
-                        className={`transition-colors ${activeComponent === title || (title === "Switch Profile" && showSwitchPopup)
+                        className={`transition-colors ${activeComponent === title ||
+                          (title === "Switch Profile" && showSwitchPopup) ||
+                          (title === "Logout" && showLogoutPopup)
                           ? "text-black"
                           : "text-[#EDEDED]"
                           }`}
@@ -114,7 +132,9 @@ const Sidebar = () => {
                     )}
                   </div>
                   <p
-                    className={`text-xl font-medium transition-colors xl:flex hidden ${activeComponent === title || (title === "Switch Profile" && showSwitchPopup)
+                    className={`text-xl font-medium transition-colors xl:flex hidden ${activeComponent === title ||
+                      (title === "Switch Profile" && showSwitchPopup) ||
+                      (title === "Logout" && showLogoutPopup)
                       ? "text-black"
                       : "text-[#EDEDED] group-hover:text-black"
                       }`}
@@ -137,6 +157,12 @@ const Sidebar = () => {
         setShowSwitchPopup={setShowSwitchPopup}
         switchProfilePosition={switchProfilePosition}
         switchProfileRef={switchProfileRef}
+      />
+
+      <LogoutConfirm
+        showLogoutPopup={showLogoutPopup}
+        setShowLogoutPopup={setShowLogoutPopup}
+        logoutPosition={logoutPosition}
       />
     </div>
   );
