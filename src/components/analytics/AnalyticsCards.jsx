@@ -24,7 +24,7 @@ const AnalyticsCards = () => {
             <div className="flex flex-wrap gap-6">
                 {MembersData.map((member, index) => {
                     return (
-                        <div key={index} className="w-[293px] h-[184px] border border-[#000000] rounded-[8px] p-4">
+                        <div key={index} className="md:w-[293px] w-full h-full border border-[#000000] rounded-[8px] p-4">
                             <div className="flex items-center gap-2">
                                 <img src={member.image} alt="Employee" />
                                 <div>
