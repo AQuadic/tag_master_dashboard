@@ -4,6 +4,7 @@ import LinkedIn from '../icons/myaccount/LinkedIn'
 import Tiktok from '../icons/myaccount/Tiktok'
 import Whatsapp from '../icons/myaccount/Whatsapp'
 import AddLink from './AddLink'
+import EditLink from './EditLink'
 import emptyLinks from '/images/Account/emptyLinks.png'
 import {
     Dialog,
@@ -66,10 +67,22 @@ const ManageLinks = () => {
                                 <p className='text-[#000000] text-lg'>{data.title}</p>
                             </div>
                             <p className='text-[#002847] text-base font-medium mt-4 md:mt-0'>{data.link}</p>
-                            <div className='flex items-center justify-center gap-2 w-[78px] h-10 border rounded-[25px] mt-4 md:mt-0 cursor-pointer'>
-                                <p className='text-[#002847] text-base'>Edit</p>
-                                <EditIcon />
-                            </div>
+
+                            <Dialog>
+                                <DialogTrigger className='ml-auto flex'>
+                                    <div className='flex items-center justify-center gap-2 w-[78px] h-10 border rounded-[25px] mt-4 md:mt-0 cursor-pointer'>
+                                        <p className='text-[#002847] text-base'>Edit</p>
+                                        <EditIcon />
+                                    </div>
+                                </DialogTrigger>
+                                <DialogContent className='lg:!max-w-[900px] w-full h-full overflow-auto'>
+                                    <DialogHeader>
+                                        <DialogDescription>
+                                            <EditLink />
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     )
                 })}
