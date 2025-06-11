@@ -5,7 +5,7 @@ import CircularProgress from "../icons/dashboard/CircleProgress"
 // eslint-disable-next-line react/prop-types
 const AnalyticsCard = ({ icon: Icon, title, value, percentage, changeText, changeColor, progressBarColor = "#007EC1", arrowIcon: ArrowIcon }) => {
     return (
-        <div className="w-[300px] h-[221px] rounded-2xl px-4 py-8" style={{ boxShadow: '0px 2px 2px 0px rgba(0, 0, 0, 0.25)' }}>
+        <div className="md:w-[300px] w-full h-[221px] rounded-2xl px-4 py-8" style={{ boxShadow: '0px 2px 2px 0px rgba(0, 0, 0, 0.25)' }}>
             <div className="flex items-center gap-4">
                 <Icon />
                 <p className="text-[#1D0909] text-[22px] font-medium">{title}</p>
@@ -58,7 +58,7 @@ const AnalyticsDashboard = () => {
                 ))}
             </div>
 
-            <div className="w-[300px] h-[221px] rounded-2xl px-4 py-5" style={{ boxShadow: '0px 2px 2px 0px rgba(0, 0, 0, 0.25)' }}>
+            <div className="md:w-[300px] w-full h-full rounded-2xl px-4 py-5" style={{ boxShadow: '0px 2px 2px 0px rgba(0, 0, 0, 0.25)' }}>
                 <div className="flex items-center gap-4">
                     <ConversionRate />
                     <p className="text-[#1D0909] text-[22px] font-medium">Conversion Rate</p>
