@@ -13,7 +13,7 @@ import DataForm from "../general/DataForm"
 const EditProfile = () => {
     return (
         <section>
-            <div className="flex md:flex-row flex-col items-center justify-between lg:w-[896px] w-full h-full bg-[#FFFFFF] rounded-[12px] mt-7 py-6 px-[38px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
+            <div className="flex md:flex-row flex-col items-center justify-between lg:w-full w-full h-full bg-[#FFFFFF] rounded-[12px] mt-7 py-6 px-[38px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
                 <div className='flex items-center gap-4'>
                     <img className='w-[72px] h-[72px] rounded-full' src={tagmaster} alt="logo" />
                     <div>
@@ -27,7 +27,7 @@ const EditProfile = () => {
                 </div>
             </div>
 
-            <div className="flex md:flex-row flex-col items-center justify-between lg:w-[896px] w-full h-full bg-[#FFFFFF] rounded-[12px] mt-7 py-4 px-[38px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
+            <div className="flex md:flex-row flex-col items-center justify-between lg:w-full w-full h-full bg-[#FFFFFF] rounded-[12px] mt-7 py-4 px-[38px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
                 <div>
                     <h1 className='text-[#000000] text-xl font-medium'>Company information</h1>
                     <div className=' flex lg:flex-row flex-col lg:gap-44'>
