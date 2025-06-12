@@ -47,8 +47,8 @@ const ActiveEmployee = () => {
     ]
 
     return (
-        <section className="md:w-[360px] h-full border border-[#000000] rounded-2xl flex flex-col p-8 mt-4 md:mt-0">
-            <h1 className="text-[#000000] text-2xl font-medium mx-auto">Active employees</h1>
+        <section className="md:w-[360px] h-full border border-[#000000] rounded-2xl flex flex-col md:p-8 p-2 mt-4 md:mt-0">
+            <h1 className="text-[#000000] md:text-2xl text-base font-medium mx-auto">Active employees</h1>
             <div className='mt-5 flex flex-col gap-8'>
                 {EmployeeData.map((employee, index) => (
                     <div key={index} className='flex items-center gap-[11px]'>
@@ -62,7 +62,7 @@ const ActiveEmployee = () => {
                         </div>
                         <div>
                             <h2 className="text-[#000000] text-base font-medium">{employee.name}</h2>
-                            <p className="text-[#878787] text-base font-medium">{employee.title}</p>
+                            <p className="text-[#878787] md:text-base text-xs font-medium">{employee.title}</p>
                         </div>
                     </div>
                 ))}

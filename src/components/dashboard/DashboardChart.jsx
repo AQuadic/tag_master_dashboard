@@ -12,8 +12,8 @@ const data = [
 
 const DashboardChart = () => {
     return (
-        <div className="">
-            <div className="h-[331px]">
+        <div className="w-full">
+            <div className="w-full max-w-4xl ">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart
                         data={data}
@@ -57,20 +57,18 @@ const DashboardChart = () => {
                 </ResponsiveContainer>
             </div>
 
-            <div className="mb-6 mx-14">
-                <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2">
-                        <div className="w-[29px] h-[13px] bg-blue-500 rounded-full"></div>
-                        <span className="text-sm font-medium text-gray-700">Views</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-[29px] h-[13px] bg-purple-500 rounded-full"></div>
-                        <span className="text-sm font-medium text-gray-700">Clicks</span>
-                    </div>
+            <div className="mt-4 flex justify-center gap-6">
+                <div className="flex items-center gap-2">
+                    <div className="w-[29px] h-[13px] bg-blue-500 rounded-full" />
+                    <span className="text-sm font-medium text-gray-700">Views</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="w-[29px] h-[13px] bg-purple-500 rounded-full" />
+                    <span className="text-sm font-medium text-gray-700">Clicks</span>
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default DashboardChart;
