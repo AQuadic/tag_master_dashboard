@@ -1,6 +1,8 @@
 import { ProfileData } from "@/constants/profile/ProfileData";
 import Delete from "../icons/profile/Delete";
 import Eye from "../icons/profile/Eye";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from "../ui/dialog";
+import DataForm from "../general/DataForm";
 
 const ProfileTable = () => {
 
@@ -43,7 +45,19 @@ const ProfileTable = () => {
                                     {item.phone}
                                 </td>
                                 <td className="px-2 py-4 flex items-center gap-8">
-                                    <Eye />
+                                    <Dialog>
+                                        <DialogTrigger>
+                                            <Eye />
+                                        </DialogTrigger>
+                                        <DialogContent className=' w-full h-auto overflow-auto'>
+                                            <DialogHeader>
+                                                <DialogDescription>
+                                                    <DataForm />
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                        </DialogContent>
+                                    </Dialog>
+
                                     <Delete />
                                 </td>
                             </tr>
