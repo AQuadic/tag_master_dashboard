@@ -25,15 +25,15 @@ const AnalyticsCards = () => {
                 {MembersData.map((member, index) => {
                     return (
                         <div key={index} className="md:w-[293px] w-full h-full border border-[#000000] rounded-[8px] p-4">
-                            <div className="flex items-center gap-2">
+                            <div className="flex md:flex-row flex-col items-center gap-2">
                                 <img src={member.image} alt="Employee" />
                                 <div>
                                     <h1 className="text-[#000000] text-base font-medium">{member.name}</h1>
-                                    <p className="text-[#878787] text-base font-medium">{member.title}</p>
+                                    <p className="text-[#878787] text-base font-medium text-center md:text-start">{member.title}</p>
                                 </div>
                             </div>
                             <hr className="my-4" />
-                            <div className="flex items-center gap-8">
+                            <div className="flex flex-wrap items-center md:gap-8 gap-2">
                                 <div className="flex items-center gap-2">
                                     <Eye />
                                     <p className="text-[#5A5A5A] text-[22px] font-medium">{member.show}</p>
