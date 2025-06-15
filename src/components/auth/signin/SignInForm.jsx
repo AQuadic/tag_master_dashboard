@@ -3,18 +3,29 @@ import { Link, useNavigate } from 'react-router'
 import logo from '/images/Header/logo.svg'
 import { postLogin } from '@/api/auth'
 import { toast } from 'react-hot-toast'
+import { useAuthStore } from '@/stores/userStore'
+import Cookies from 'js-cookie'
 
 const SignInForm = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const setUser = useAuthStore((state) => state.setUser);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const result = await postLogin({ email, password });
+            const response = await postLogin({ email, password });
+            setUser(response.user);
+
+            if (rememberMe) {
+                Cookies.set("Tag_master_admin", response.token, { expires: 7, path: "/" });
+            } else {
+                Cookies.set("Tag_master_admin", response.token, { path: "/" });
+            }
+
             toast.success('تم تسجيل الدخول بنجاح');
             navigate("/dashboard");
         } catch (err) {
