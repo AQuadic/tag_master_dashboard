@@ -70,7 +70,7 @@ const SignInForm = () => {
                     />
 
                     <div className='mt-3 flex md:gap-56 gap-32'>
-                        <Link to='' className='text-[#003758] text-sm'>نسيت كلمة المرور</Link>
+                        <Link to='/forgetpassword' className='text-[#003758] text-sm'>نسيت كلمة المرور</Link>
                         <div className="flex items-center mb-4">
                             <label htmlFor="rememberMe" className="mx-2 text-sm font-normal text-[#4A4A4A]">تذكرني</label>
                             <input
