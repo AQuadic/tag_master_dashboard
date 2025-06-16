@@ -91,7 +91,7 @@ const Products = () => {
                 ))}
             </div>
 
-            <EmptyState />
+            {products.length === 0 && <EmptyState />}
 
 
             <div className="flex items-center justify-center mt-32">
