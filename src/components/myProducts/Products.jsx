@@ -3,17 +3,23 @@ import { useState } from "react"
 import EmptyState from "./EmptyState"
 import { useQuery } from "react-query"
 import { getProducts } from "@/api/products"
+import Spinner from "../icons/general/Spinner"
 const Products = () => {
     const [activeProducts, setActiveProducts] = useState("All Product")
     const productsFilter = ["All Product", "NFC Business Card", "Poket NFC Cardholder", "NFC Sticker"]
 
-    const { data: products = [] } = useQuery({
+    const { data: products = [], isLoading } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
             const response = await getProducts();
             return response.data || [];
         },
     });
+
+    if (isLoading) {
+        return <Spinner />
+    }
+
     return (
         <section>
             <div className="flex flex-wrap items-center gap-5">

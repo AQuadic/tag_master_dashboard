@@ -11,13 +11,18 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { useQuery } from 'react-query'
+import Spinner from '../icons/general/Spinner'
 
 const ManageLinks = () => {
 
-    const { data: links = [] } = useQuery({
+    const { data: links = [], isLoading } = useQuery({
         queryKey: ["links"],
         queryFn: getLinks,
     });
+
+    if (isLoading) {
+        return <Spinner />
+    }
     return (
         <section>
             <Dialog>
