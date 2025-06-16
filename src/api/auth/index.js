@@ -15,3 +15,9 @@ export const postLogout= async () => {
     });
     return response.data;
 };
+
+export const deleteAccount = async () => {
+    const response = await axios.delete("/destroy", {
+    });
+    return response.data;
+};

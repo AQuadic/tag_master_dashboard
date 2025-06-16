@@ -23,7 +23,7 @@ const MainTabs = () => {
                         </div>
                     </TabsContent>
                     <TabsContent value="manageTheme">
-                        <div>i</div>
+                        <div></div>
                     </TabsContent>
                 </Tabs>
             </div>
