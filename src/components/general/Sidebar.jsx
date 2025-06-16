@@ -89,7 +89,7 @@ const Sidebar = () => {
             )}
           </div>
 
-          <div className="mt-auto flex flex-col gap-5">
+          <div className="mt-auto flex flex-col gap-5 pt-8">
             {bottomLinks.map(
               ({ icon: Icon, activeIcon: ActiveIcon, title }, index) => (
                 <div

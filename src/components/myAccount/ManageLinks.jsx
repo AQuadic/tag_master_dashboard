@@ -31,7 +31,7 @@ const ManageLinks = () => {
                         <button className="w-[140px] h-14 border-2 border-[#002847] rounded-[50px]">Add link</button>
                     </div>
                 </DialogTrigger>
-                <DialogContent className='lg:!max-w-[900px] w-full h-full overflow-auto'>
+                <DialogContent className='lg:!max-w-[900px] w-full lg:h-auto h-[500px] overflow-auto'>
                     <DialogHeader>
                         <DialogDescription>
                             <AddLink />
@@ -79,7 +79,7 @@ const ManageLinks = () => {
                                         <EditIcon />
                                     </div>
                                 </DialogTrigger>
-                                <DialogContent className='lg:!max-w-[900px] w-full h-full overflow-auto'>
+                                <DialogContent className='lg:!max-w-[900px] w-full lg:h-auto h-[500px] overflow-auto'>
                                     <DialogHeader>
                                         <DialogDescription>
                                             <EditLink />
