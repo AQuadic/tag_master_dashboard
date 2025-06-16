@@ -1,4 +1,8 @@
 import Logout from "../icons/logout/Logout";
+import { postLogout } from "@/api/auth";
+import Cookies from "js-cookie";
+import { useAuthStore } from "@/stores/userStore";
+import toast from "react-hot-toast";
 
 /* eslint-disable react/prop-types */
 const LogoutConfirm = ({
@@ -6,9 +10,22 @@ const LogoutConfirm = ({
     setShowLogoutPopup,
     logoutPosition
 }) => {
+    const setUser = useAuthStore((state) => state.setUser);
 
     const handleCancel = () => {
         setShowLogoutPopup(false);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await postLogout();
+        } catch (error) {
+            toast.error("Logout failed:", error);
+        } finally {
+            setUser(null);
+            Cookies.remove("Tag_master_admin");
+            window.location.href = "/signin";
+        }
     };
 
     if (!showLogoutPopup) return null;
@@ -38,13 +55,14 @@ const LogoutConfirm = ({
 
                 <div className="flex gap-3">
                     <button
-                        className="flex-1 px-4 py-2 text-white bg-[#002847] hover:bg-[#003a5f] rounded-lg font-medium transition-colors"
+                        onClick={handleLogout}
+                        className="flex-1 px-4 py-2 text-white bg-[#002847] hover:bg-[#003a5f] rounded-lg font-medium transition-colors cursor-pointer"
                     >
                         Confirm
                     </button>
                     <button
                         onClick={handleCancel}
-                        className="flex-1 px-4 py-2 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
+                        className="flex-1 px-4 py-2 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors cursor-pointer"
                     >
                         Cancel
                     </button>

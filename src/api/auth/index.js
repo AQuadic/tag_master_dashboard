@@ -8,3 +8,10 @@ export const postLogin = async ({ email, password }) => {
     });
     return response.data;
 };
+
+
+export const postLogout= async () => {
+    const response = await axios.post("/logout", {
+    });
+    return response.data;
+};
