@@ -10,7 +10,6 @@ import Logout from "@/components/icons/sidebar/Logout";
 import MyProducts from "@/components/icons/sidebar/MyProducts";
 import PaymentPlan from "@/components/icons/sidebar/PaymentPlan";
 import PaymentPlanActive from "@/components/icons/sidebar/PaymentPlanActive";
-import SwitchProfile from "@/components/icons/sidebar/SwitchProfile";
 
 export const SidebarLinks = [
     {
@@ -42,10 +41,6 @@ export const SidebarLinks = [
         icon: MyProducts ,
         activeIcon: ActiveProducts,
         title: "My Products"
-    },
-        {
-        icon: SwitchProfile ,
-        title: "Switch Profile"
     },
         {
         icon: Logout ,

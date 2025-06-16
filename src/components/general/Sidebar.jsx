@@ -6,14 +6,12 @@ import MyAccount from "@/pages/MyAccount";
 import MyProducts from "@/pages/MyProducts";
 import PaymentPlan from "@/pages/PaymentPlan";
 import { useState, useRef } from "react";
-import SwitchProfile from "../switchAccount/SwitchProfile";
 import LogoutConfirm from "../logout/LogoutConfirm";
 
 const Sidebar = () => {
   const [activeComponent, setActiveComponent] = useState("Dashboard");
   const [showSwitchPopup, setShowSwitchPopup] = useState(false);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-  const [switchProfilePosition, setSwitchProfilePosition] = useState({ top: 0, left: 0 });
   const [logoutPosition, setLogoutPosition] = useState({ top: 0, left: 0 });
   const switchProfileRef = useRef(null);
   const logoutRef = useRef(null);
@@ -21,17 +19,7 @@ const Sidebar = () => {
   const bottomLinks = SidebarLinks.slice(-2);
 
   const handleItemClick = (title) => {
-    if (title === "Switch Profile") {
-      if (switchProfileRef.current) {
-        const rect = switchProfileRef.current.getBoundingClientRect();
-        setSwitchProfilePosition({
-          top: rect.top,
-          left: rect.right + 10
-        });
-      }
-      setShowSwitchPopup(!showSwitchPopup);
-      setShowLogoutPopup(false);
-    } else if (title === "Logout") {
+    if (title === "Logout") {
       if (logoutRef.current) {
         const rect = logoutRef.current.getBoundingClientRect();
         setLogoutPosition({
@@ -151,13 +139,6 @@ const Sidebar = () => {
       <main className="flex-1 p-6">
         <div className="">{renderActiveComponent()}</div>
       </main>
-
-      <SwitchProfile
-        showSwitchPopup={showSwitchPopup}
-        setShowSwitchPopup={setShowSwitchPopup}
-        switchProfilePosition={switchProfilePosition}
-        switchProfileRef={switchProfileRef}
-      />
 
       <LogoutConfirm
         showLogoutPopup={showLogoutPopup}
