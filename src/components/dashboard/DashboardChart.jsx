@@ -13,7 +13,7 @@ const data = [
 const DashboardChart = () => {
     return (
         <div className="w-full">
-            <div className="w-full max-w-4xl ">
+            <div className="w-full h-64 max-w-4xl mx-auto">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart
                         data={data}
