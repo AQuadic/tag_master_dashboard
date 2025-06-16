@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router'
+import { Link } from 'react-router'
 import tagmaster from '../../../public/images/Account/tagmaster.png'
 import EditIcon from '../icons/myaccount/EditIcon'
 import {
@@ -11,20 +11,23 @@ import {
 import DataForm from "../general/DataForm"
 import { deleteAccount } from '@/api/auth'
 import toast from 'react-hot-toast'
+import { useAuthStore } from '@/stores/userStore'
+import Cookies from 'js-cookie'
 
 const EditProfile = () => {
-    const navigate = useNavigate();
+    const setUser = useAuthStore((state) => state.setUser);
 
     const handleDeleteAccount = async () => {
         try {
             await deleteAccount();
-            toast.success("Account deleted successfully")
-            navigate('/signin');
-        } catch (error) {
-            toast.error('Failed to delete account:', error);
+        } catch {
+            toast.error("Account deleted successfully");
+        } finally {
+            setUser(null);
+            Cookies.remove("Tag_master_admin");
+            window.location.href = "/signin";
         }
     };
-
 
     return (
         <section>
