@@ -1,7 +1,7 @@
 import { axios } from "@/components/lib/axios";
 
 export const postLogin = async ({ email, password }) => {
-    const response = await axios.post("/login", {
+    const response = await axios.post("/user/login", {
         email,
         password,
         password_confirmation: password,
@@ -17,7 +17,7 @@ export const postLogout= async () => {
 };
 
 export const deleteAccount = async () => {
-    const response = await axios.delete("/destroy", {
+    const response = await axios.post("/logout", {
     });
     return response.data;
 };

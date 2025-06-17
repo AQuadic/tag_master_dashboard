@@ -4,19 +4,22 @@ import { create } from "zustand";
 
 // Get initial user from localStorage
 const getInitialUser = () => {
-  const storedUser = localStorage.getItem("Tag_master_admin");
-  return storedUser ? JSON.parse(storedUser) : null;
+  try {
+    const storedUser = localStorage.getItem("Tag_master_user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  } catch {
+    return null;
+  }
 };
 
-// Zustand store
 export const useAuthStore = create((set) => ({
   user: getInitialUser(),
   setUser: (user) => {
     set({ user });
     if (user) {
-      localStorage.setItem("Tag_master_admin", JSON.stringify(user));
+      localStorage.setItem("Tag_master_user", JSON.stringify(user));
     } else {
-      localStorage.removeItem("Tag_master_admin");
+      localStorage.removeItem("Tag_master_user");
     }
   },
   cartCount: localStorage.getItem("cartCount")
@@ -28,23 +31,23 @@ export const useAuthStore = create((set) => ({
   },
 }));
 
-// useAuthSubscription hook
 export function useAuthSubscription() {
   useEffect(() => {
-    const token = Cookies.get("Tag_master_admin");
+    const token = Cookies.get("Tag_master_token"); // this should be the real auth token
 
     if (!token) {
-      useAuthStore.getState().setCartCount(null);
+      useAuthStore.getState().setCartCount(0);
       useAuthStore.getState().setUser(null);
     }
 
-    const unsubscribe = useAuthStore.subscribe((user) => {
+    const unsubscribe = useAuthStore.subscribe((state) => {
+      const { user } = state;
       if (user) {
         localStorage.setItem("cartCount", JSON.stringify(user.cartCount || 0));
-        localStorage.setItem("Tag_master_admin", JSON.stringify(user));
+        localStorage.setItem("Tag_master_user", JSON.stringify(user));
       } else {
         localStorage.removeItem("cartCount");
-        localStorage.removeItem("Tag_master_admin");
+        localStorage.removeItem("Tag_master_user");
       }
     });
 
