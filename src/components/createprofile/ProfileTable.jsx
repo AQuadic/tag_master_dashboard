@@ -7,9 +7,9 @@ import DataForm from "../general/DataForm";
 const ProfileTable = () => {
 
     return (
-        <div>
-            <div className="relative overflow-x-auto mt-8">
-                <table className="w-full text-left rtl:text-right">
+        <div className="mt-8">
+            <div className="w-[200px] md:w-full overflow-x-auto">
+                <table className="min-w-[700px] w-full">
                     <thead className="text-[#000000] text-2xl font-medium">
                         <tr>
                             <th scope="col" className="px-2 py-3">

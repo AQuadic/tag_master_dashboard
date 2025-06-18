@@ -3,8 +3,8 @@ import Download from "../icons/paymentHistory/Download"
 const Table = () => {
     return (
         <section className="mt-[42px]">
-            <div className="relative overflow-x-auto">
-                <table className="w-full">
+            <div className="w-[200px] md:w-full overflow-x-auto">
+                <table className="min-w-[700px] w-full">
                     <thead className="text-[#000000] text-base font-medium bg-[#F4F4F4]">
                         <tr>
                             <th scope="col" className="py-3">Order id</th>
