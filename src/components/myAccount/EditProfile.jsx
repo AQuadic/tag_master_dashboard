@@ -14,6 +14,7 @@ import toast from 'react-hot-toast'
 import { useAuthStore } from '@/stores/userStore'
 import Cookies from 'js-cookie'
 import { useState } from 'react'
+import { updateUser } from '@/api/user'
 
 const EditProfile = () => {
     const { user, setUser } = useAuthStore();
@@ -40,8 +41,8 @@ const EditProfile = () => {
                 <div className='flex md:flex-row flex-col md:items-center gap-4'>
                     <img className='w-[72px] h-[72px] rounded-full' src={tagmaster} alt="logo" />
                     <div>
-                        <h1 className='text-black text-xl font-medium'>{user?.name || "Tag Master"}</h1>
-                        <p className='text-[#4A4A4A] text-lg mt-3'>{user?.bio || "Technology Solutions"}</p>
+                        <h1 className='text-black md:text-xl text-sm font-medium'>{user?.name || "Tag Master"}</h1>
+                        <p className='text-[#4A4A4A] md:text-lg text-xs md:mt-3 mt-1'>{user?.bio || "Technology Solutions"}</p>
                     </div>
                 </div>
                 <div className='flex items-center justify-center gap-2 w-[78px] h-10 border rounded-[25px] mt-4 md:mt-0'>
@@ -52,26 +53,26 @@ const EditProfile = () => {
 
             <div className="flex md:flex-row flex-col items-center justify-between w-full h-full bg-[#FFFFFF] rounded-[12px] mt-7 py-4 px-[38px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
                 <div>
-                    <h1 className='text-[#000000] text-xl font-medium'>Company information</h1>
+                    <h1 className='text-[#000000] md:text-xl text-sm font-medium'>Company information</h1>
                     <div className=' flex lg:flex-row flex-col lg:gap-44'>
                         <div>
                             <div className='mt-5'>
                                 <h1 className='text-[#4A4A4A] text-sm'>Name</h1>
-                                <p className='text-[#000000] text-base mt-1.5'>{user?.name}</p>
+                                <p className='text-[#000000] md:text-base text-xs mt-1.5'>{user?.name}</p>
                             </div>
                             <div className='mt-5'>
                                 <h1 className='text-[#4A4A4A] text-sm'>Email</h1>
-                                <p className='text-[#000000] text-base mt-1.5'>{user?.email}</p>
+                                <p className='text-[#000000] md:text-base text-xs mt-1.5'>{user?.email}</p>
                             </div>
                             <div className='mt-5'>
                                 <h1 className='text-[#4A4A4A] text-sm'>Plan</h1>
-                                <p className='text-[#000000] text-base mt-1.5'>PRO</p>
+                                <p className='text-[#000000] md:text-base text-xs mt-1.5'>PRO</p>
                             </div>
                         </div>
                         <div>
                             <div className='mt-5'>
                                 <h1 className='text-[#4A4A4A] text-sm'>Phone</h1>
-                                <p className='text-[#000000] text-base mt-1.5'>
+                                <p className='text-[#000000] md:text-base text-xs mt-1.5'>
                                     {user?.phone
                                         ? user.phone_verified_at
                                             ? user.phone
@@ -81,7 +82,7 @@ const EditProfile = () => {
                             </div>
                             <div className='mt-5'>
                                 <h1 className='text-[#4A4A4A] text-sm'>Bio</h1>
-                                <p className='text-black text-base mt-1.5'>{user?.bio || "Technology Solutions"}</p>
+                                <p className='text-black md:text-base text-xs mt-1.5'>{user?.bio || "Technology Solutions"}</p>
                             </div>
                         </div>
                     </div>
@@ -98,6 +99,7 @@ const EditProfile = () => {
                         <DialogHeader>
                             <DialogDescription>
                                 <DataForm
+                                    onSubmit={updateUser}
                                     onFinish={() => setEditOpen(false)}
                                     user={user}
                                     setUser={setUser}
