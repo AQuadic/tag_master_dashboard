@@ -2,13 +2,20 @@ import { useQuery } from "react-query"
 import ActiveStatus from "../icons/dashboard/ActiveStatus"
 import Pro from "../icons/paymentplan/Pro"
 import { getCurrentSubscriptions } from "@/api/subscriptions"
+import Spinner from "../icons/general/Spinner"
 
 const Header = () => {
 
-    const { data: currentSubscription } = useQuery({
+    const { data: currentSubscription, isLoading } = useQuery({
         queryKey: ["currentSubscriptions"],
         queryFn: getCurrentSubscriptions,
     });
+
+    if (isLoading || !currentSubscription) {
+        return <div><Spinner /></div>
+    }
+
+    console.log(" : ", currentSubscription)
 
     return (
         <section className="w-full h-full rounded-[12px] md:px-[60px] px-4 py-[18px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
