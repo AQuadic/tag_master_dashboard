@@ -31,8 +31,8 @@ const Table = () => {
                                 <td className="text-center px-6 py-4 font-medium text-[#5A5A5A] text-sm">{new Date(subscription.start_date).toLocaleDateString()}</td>
                                 <td className="text-center px-6 py-4 font-medium text-[#5A5A5A] text-sm">{new Date(subscription.end_date).toLocaleDateString()}</td>
                                 <td className="text-center px-6 py-4 font-medium text-[#5A5A5A] text-sm">{subscription.status}</td>
-                                <td className="text-center px-6 py-4 font-medium text-[#5A5A5A] text-sm">{subscription.name}</td>
-                                <td className="text-center px-6 py-4 font-medium text-[#5A5A5A] text-sm">${subscription.amount}</td>
+                                <td className="text-center px-6 py-4 font-medium text-[#5A5A5A] text-sm">{subscription.plan.name.en}</td>
+                                <td className="text-center px-6 py-4 font-medium text-[#5A5A5A] text-sm">${subscription.plan.price}</td>
                                 <td className="px-6 py-4 font-medium text-[#002847] text-center text-sm flex items-center justify-center gap-10">
                                     <p>View</p>
                                     <Download />
