@@ -32,7 +32,13 @@ const DataForm = ({ onSubmit, onFinish, setUser, user }) => {
         try {
             const response = await onSubmit(formData);
             if (response?.user && setUser) setUser(response.user);
-            toast.success("User updated successfully");
+
+            if (user) {
+                toast.success("Profile updated successfully");
+            } else {
+                toast.success("Account created successfully");
+            }
+
             if (onFinish) onFinish();
         } catch (error) {
             if (error?.response?.data?.errors) {
