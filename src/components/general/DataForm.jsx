@@ -8,13 +8,14 @@ import Lock from "../icons/profile/Lock";
 import { updateUser } from "@/api/user";
 import toast from "react-hot-toast";
 
-const DataForm = ({ onFinish, setUser, user }) => {
+const DataForm = ({ onSubmit, onFinish, setUser, user }) => {
     const [formData, setFormData] = useState({
         name: user?.name || "",
         email: user?.email || "",
         phone: user?.phone || "",
         phone_country: user?.phone_country || "EG",
         password: "",
+        password_confirmation: "",
     });
 
     const handleChange = (e) => {
@@ -23,13 +24,25 @@ const DataForm = ({ onFinish, setUser, user }) => {
     };
 
     const handleSubmit = async () => {
+        if (!formData.name || !formData.email || !formData.password) {
+            toast.error("Please fill in all required fields");
+            return;
+        }
+
         try {
-            const response = await updateUser(formData);
-            if (setUser) setUser(response.user);
+            const response = await onSubmit(formData);
+            if (response?.user && setUser) setUser(response.user);
             toast.success("User updated successfully");
             if (onFinish) onFinish();
         } catch (error) {
-            toast.error("Update failed");
+            if (error?.response?.data?.errors) {
+                const errors = error.response.data.errors;
+                Object.values(errors).forEach((msgs) =>
+                    msgs.forEach((msg) => toast.error(msg))
+                );
+            } else {
+                toast.error("Operation failed");
+            }
         }
     };
 
@@ -101,6 +114,21 @@ const DataForm = ({ onFinish, setUser, user }) => {
                     <Lock />
                 </div>
             </div>
+
+            <div className="relative">
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    placeholder="Confirm Password"
+                    value={formData.password_confirmation}
+                    onChange={handleChange}
+                    className="md:w-[450px] w-full h-[58px] border rounded-[8px] mt-6 px-9"
+                />
+                <div className="absolute top-[50%] left-2">
+                    <Lock />
+                </div>
+            </div>
+
 
             <button
                 onClick={handleSubmit}
