@@ -30,7 +30,7 @@ const ActiveEmployee = () => {
                         </div>
                         <div>
                             <h2 className="text-[#000000] text-base font-medium">{employee.name}</h2>
-                            <p className="text-[#878787] md:text-base text-xs font-medium">{employee.description}</p>
+                            <p className="text-[#878787] md:text-base text-xs font-medium">{employee.phone}</p>
                         </div>
                     </div>
                 ))}
