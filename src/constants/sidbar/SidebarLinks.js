@@ -15,35 +15,41 @@ export const SidebarLinks = [
     {
         icon: Dashboard ,
         activeIcon: ActiveDashboard,
-        title: "Dashboard"
+        title: "Dashboard",
+        path: "dashboard"
     },
         {
         icon: Analytics ,
         activeIcon: ActiveAnalytics,
-        title: "Analytics"
+        title: "Analytics",
+        path: "analytics"
     },
         {
         icon: CreateProfile ,
         activeIcon: ActiveProfile,
-        title: "Create Profile"
+        title: "Create Profile",
+        path: "createProfile"
     },
         {
         icon: PaymentPlan ,
         activeIcon: PaymentPlanActive,
-        title: "Payment Plan"
+        title: "Payment Plan",
+        path: "paymentPlan"
     },
         {
         icon: PaymentPlan ,
         activeIcon: ActiveAccount,
-        title: "My Account"
+        title: "My Account",
+        path: "myAccount"
     },
         {
         icon: MyProducts ,
         activeIcon: ActiveProducts,
-        title: "My Products"
+        title: "My Products",
+        path: "myProducts"
     },
         {
         icon: Logout ,
-        title: "Logout"
+        title: "Logout",
     },
 ]

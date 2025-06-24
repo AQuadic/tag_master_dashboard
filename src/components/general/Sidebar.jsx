@@ -1,15 +1,11 @@
 import { SidebarLinks } from "@/constants/sidbar/SidebarLinks";
-import Analytics from "@/pages/Analytics";
-import CreateProfile from "@/pages/CreateProfile";
-import Dashboard from "@/pages/Dashboard";
-import MyAccount from "@/pages/MyAccount";
-import MyProducts from "@/pages/MyProducts";
-import PaymentPlan from "@/pages/PaymentPlan";
 import { useState, useRef } from "react";
+import { useNavigate, useLocation } from "react-router";
 import LogoutConfirm from "../logout/LogoutConfirm";
 
 const Sidebar = () => {
-  const [activeComponent, setActiveComponent] = useState("Dashboard");
+  const navigate = useNavigate();
+  const location = useLocation();
   const [showSwitchPopup, setShowSwitchPopup] = useState(false);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [logoutPosition, setLogoutPosition] = useState({ top: 0, left: 0 });
@@ -18,7 +14,18 @@ const Sidebar = () => {
   const topLinks = SidebarLinks.slice(0, SidebarLinks.length - 2);
   const bottomLinks = SidebarLinks.slice(-2);
 
-  const handleItemClick = (title) => {
+  const getCurrentActiveTitle = () => {
+    const currentPath = location.pathname;
+
+    const activeLink = SidebarLinks.find(link =>
+      link.path && currentPath === `/${link.path}`
+    );
+    return activeLink ? activeLink.title : 'Dashboard';
+  };
+
+  const activeComponent = getCurrentActiveTitle();
+
+  const handleItemClick = (title, path) => {
     if (title === "Logout") {
       if (logoutRef.current) {
         const rect = logoutRef.current.getBoundingClientRect();
@@ -29,40 +36,31 @@ const Sidebar = () => {
       }
       setShowLogoutPopup(!showLogoutPopup);
       setShowSwitchPopup(false);
-    } else {
-      setActiveComponent(title);
+    } else if (title === "Switch Profile") {
+      setShowSwitchPopup(!showSwitchPopup);
+      setShowLogoutPopup(false);
+    } else if (path) {
+      // Navigate to the path - now more flexible
+      navigate(`/${path}`);
       setShowSwitchPopup(false);
       setShowLogoutPopup(false);
     }
   };
 
-  const renderActiveComponent = () => {
-    return componentMap[activeComponent];
-  };
-
-  const componentMap = {
-    "Payment Plan": <PaymentPlan />,
-    "Dashboard": <Dashboard />,
-    "Analytics": <Analytics />,
-    "Create Profile": <CreateProfile />,
-    "My Products": <MyProducts />,
-    "My Account": <MyAccount />
-  };
-
   return (
-    <div className="flex container relative">
-      <aside className="flex-shrink-0">
+    <div className="flex-shrink-0 relative">
+      <aside>
         <div className="xl:w-[358px] w-20 min-h-[calc(100dvh-120px)] bg-[#002847] rounded-2xl mt-6 ml-6 flex flex-col xl:p-14 p-3">
           <div className="flex flex-col gap-10">
             {topLinks.map(
-              ({ icon: Icon, activeIcon: ActiveIcon, title }, index) => (
+              ({ icon: Icon, activeIcon: ActiveIcon, title, path }, index) => (
                 <div
                   key={index}
                   className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${activeComponent === title
                     ? "bg-[#E6F3F9] shadow-md"
                     : "hover:bg-[#E6F3F9]"
                     }`}
-                  onClick={() => handleItemClick(title)}
+                  onClick={() => handleItemClick(title, path)}
                 >
                   <div className="mr-3">
                     {activeComponent === title && ActiveIcon ? (
@@ -91,17 +89,24 @@ const Sidebar = () => {
 
           <div className="mt-auto flex flex-col gap-5 pt-8">
             {bottomLinks.map(
-              ({ icon: Icon, activeIcon: ActiveIcon, title }, index) => (
+              ({ icon: Icon, activeIcon: ActiveIcon, title, path }, index) => (
                 <div
                   key={index}
-                  ref={title === "Switch Profile" ? switchProfileRef : title === "Logout" ? logoutRef : null}
-                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${(title === "Switch Profile" && showSwitchPopup) || (title === "Logout" && showLogoutPopup)
+                  ref={
+                    title === "Switch Profile"
+                      ? switchProfileRef
+                      : title === "Logout"
+                        ? logoutRef
+                        : null
+                  }
+                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${(title === "Switch Profile" && showSwitchPopup) ||
+                    (title === "Logout" && showLogoutPopup)
                     ? "bg-[#E6F3F9] shadow-md"
                     : activeComponent === title
                       ? "bg-[#E6F3F9] shadow-md"
                       : "hover:bg-[#E6F3F9]"
                     }`}
-                  onClick={() => handleItemClick(title)}
+                  onClick={() => handleItemClick(title, path)}
                 >
                   <div className="mr-3">
                     {((activeComponent === title && ActiveIcon) ||
@@ -135,10 +140,6 @@ const Sidebar = () => {
           </div>
         </div>
       </aside>
-
-      <main className="flex-1 p-6">
-        <div className="">{renderActiveComponent()}</div>
-      </main>
 
       <LogoutConfirm
         showLogoutPopup={showLogoutPopup}

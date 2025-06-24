@@ -45,10 +45,10 @@ const EditProfile = () => {
                         <p className='text-[#4A4A4A] md:text-lg text-xs md:mt-3 mt-1'>{user?.bio || "Technology Solutions"}</p>
                     </div>
                 </div>
-                <div className='flex items-center justify-center gap-2 w-[78px] h-10 border rounded-[25px] mt-4 md:mt-0'>
+                {/* <div className='flex items-center justify-center gap-2 w-[78px] h-10 border rounded-[25px] mt-4 md:mt-0'>
                     <p className='text-[#002847] text-base'>Edit</p>
                     <EditIcon />
-                </div>
+                </div> */}
             </div>
 
             <div className="flex md:flex-row flex-col items-center justify-between w-full h-full bg-[#FFFFFF] rounded-[12px] mt-7 py-4 px-[38px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
