@@ -4,11 +4,17 @@ import Eye from "../icons/profile/Eye";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from "../ui/dialog";
 import DataForm from "../general/DataForm";
 import ProfileHeader from "./ProfileHeader";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getEmployees } from "@/api/employees";
 import Spinner from "../icons/general/Spinner";
+import { updateUser } from "@/api/user";
+import { useAuthStore } from "@/stores/userStore";
 
 const ProfileTable = () => {
+    const { user, setUser } = useAuthStore();
+    const [isEditOpen, setEditOpen] = useState(false);
+    const queryClient = useQueryClient();
+
     const { data: employees = [], isLoading } = useQuery({
         queryKey: ["employees"],
         queryFn: getEmployees,
@@ -17,7 +23,15 @@ const ProfileTable = () => {
     const [profiles, setProfiles] = useState([]);
 
     const handleAddProfile = (newProfile) => {
-        setProfiles(prev => [...prev, newProfile]);
+        setProfiles((prev) => [...prev, newProfile]);
+    };
+
+    const handleUserUpdated = (updatedUser) => {
+        setProfiles((prev) =>
+            prev.map((p) => (p.id === updatedUser.id ? updatedUser : p))
+        );
+
+        queryClient.invalidateQueries(["employees"]);
     };
 
     if (isLoading) return <Spinner />;
@@ -62,14 +76,22 @@ const ProfileTable = () => {
                                     {item.phone || "--"}
                                 </td>
                                 <td className="px-2 py-4 flex items-center gap-8">
-                                    <Dialog>
+                                    <Dialog open={isEditOpen} onOpenChange={setEditOpen}>
                                         <DialogTrigger>
                                             <Eye />
                                         </DialogTrigger>
-                                        <DialogContent className=' w-full h-auto overflow-auto'>
+                                        <DialogContent className="w-full h-auto overflow-auto">
                                             <DialogHeader>
                                                 <DialogDescription>
-                                                    <DataForm user={item} />
+                                                    <DataForm
+                                                        onSubmit={updateUser}
+                                                        onFinish={() => setEditOpen(false)}
+                                                        user={user}
+                                                        setUser={(updatedUser) => {
+                                                            setUser(updatedUser);
+                                                            handleUserUpdated(updatedUser);
+                                                        }}
+                                                    />
                                                 </DialogDescription>
                                             </DialogHeader>
                                         </DialogContent>
