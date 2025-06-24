@@ -40,11 +40,9 @@ const Products = () => {
                 {products.map((product, index) => (
                     <div key={index} className="md:w-[250px] w-full">
                         <img
-                            src={product.images[0].responsive_urls[0]}
-                            srcSet={product.images[0].responsive_urls.join(', ')}
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 298px"
-                            alt={product.name.en}
-                        // className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px]"
+                            src={product.images?.[0]?.url}
+                            alt={"Product Image"}
+                        // className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px] object-cover"
                         />
                         <div className="h-full pb-2 border-b border-r border-l border-[#000000] rounded-b-[12px] px-3">
                             <p className="text-[#000000] text-xs pt-1.5">{product.name.en}</p>
