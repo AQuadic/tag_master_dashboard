@@ -27,7 +27,7 @@ const MyProducts = () => {
                     <MyProductsIcon />
                     <h1 className="text-[#00182B] md:text-xl font-medium">My products</h1>
                 </div>
-                <Link to='' className="text-[#00182B] md:text-xl font-medium underline">More</Link>
+                <Link to='/myProducts' className="text-[#00182B] md:text-xl font-medium underline">More</Link>
             </div>
             <div className="mt-[26px] flex flex-wrap items-center gap-[42px]">
                 {limitedProducts.map((product, index) => (
