@@ -5,10 +5,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger }
 import DataForm from "../general/DataForm";
 import ProfileHeader from "./ProfileHeader";
 import { useQuery, useQueryClient } from "react-query";
-import { getEmployees } from "@/api/employees";
+import { deleteUser, getEmployees } from "@/api/employees";
 import Spinner from "../icons/general/Spinner";
 import { updateUser } from "@/api/user";
 import { useAuthStore } from "@/stores/userStore";
+import toast from "react-hot-toast";
 
 const ProfileTable = () => {
     const { user, setUser } = useAuthStore();
@@ -36,10 +37,24 @@ const ProfileTable = () => {
 
     if (isLoading) return <Spinner />;
 
+    const handleDeleteUser = async (id) => {
+        try {
+            await deleteUser(id);
+            toast.success("User deleted successfully");
+
+            setProfiles((prev) => prev.filter((p) => p.id !== id));
+
+            queryClient.invalidateQueries(["employees"]);
+        } catch (err) {
+            toast.error("Failed to delete user");
+            console.error(err);
+        }
+    };
+
     return (
         <div className="mt-8">
             <ProfileHeader onAdd={handleAddProfile} />
-            <div className="w-[200px] md:w-full overflow-x-auto mt-6">
+            <div className="w-[250px] md:w-[400px] lg:w-full overflow-x-auto mt-6">
                 <table className="min-w-[700px] w-full">
                     <thead className="text-[#000000] text-2xl font-medium">
                         <tr>
@@ -97,7 +112,41 @@ const ProfileTable = () => {
                                         </DialogContent>
                                     </Dialog>
 
-                                    <Delete />
+
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <button className="p-0 m-0 bg-transparent border-none cursor-pointer">
+                                                <Delete />
+                                            </button>
+                                        </DialogTrigger>
+                                        <DialogContent className="w-full h-auto overflow-auto">
+                                            <DialogHeader>
+                                                <DialogDescription>
+                                                    <div className="w-full h-full bg-white rounded-2xl">
+                                                        <h1 className="text-black text-xl font-medium">
+                                                            Are you sure you want to delete account?
+                                                        </h1>
+                                                        <div className="flex gap-3 mt-4">
+                                                            <button
+                                                                onClick={() => handleDeleteUser(item.id)}
+                                                                className="flex-1 px-4 py-2 text-white bg-[#002847] hover:bg-[#003a5f] rounded-lg font-medium transition-colors"
+                                                            >
+                                                                Confirm
+                                                            </button>
+                                                            <button
+                                                                onClick={() => setEditOpen(false)}
+                                                                className="flex-1 px-4 py-2 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
+                                                            >
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                        </DialogContent>
+                                    </Dialog>
+
+
                                 </td>
                             </tr>
                         ))}

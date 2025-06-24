@@ -5,9 +5,12 @@ export const getEmployees = async () => {
     return response.data.data || response.data;
 };
 
-
-
 export const getEmployeesAnalytics = async () => {
         const response = await axios.get("/dashboard/employees?with_analytics=121");
         return response.data.data || response.data;
+};
+
+export const deleteUser = async (id) => {
+    const response = await axios.delete(`/user-link/${id}`);
+    return response.data;
 };
