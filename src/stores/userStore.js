@@ -22,13 +22,6 @@ export const useAuthStore = create((set) => ({
       localStorage.removeItem("Tag_master_user");
     }
   },
-  cartCount: localStorage.getItem("cartCount")
-    ? JSON.parse(localStorage.getItem("cartCount"))
-    : 0,
-  setCartCount: (count) => {
-    set({ cartCount: count });
-    localStorage.setItem("cartCount", JSON.stringify(count));
-  },
 }));
 
 export function useAuthSubscription() {
@@ -43,10 +36,8 @@ export function useAuthSubscription() {
     const unsubscribe = useAuthStore.subscribe((state) => {
       const { user } = state;
       if (user) {
-        localStorage.setItem("cartCount", JSON.stringify(user.cartCount || 0));
         localStorage.setItem("Tag_master_user", JSON.stringify(user));
       } else {
-        localStorage.removeItem("cartCount");
         localStorage.removeItem("Tag_master_user");
       }
     });
