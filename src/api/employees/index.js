@@ -1,8 +1,12 @@
 import { axios } from "@/components/lib/axios";
 
-export const getEmployees = async () => {
-    const response = await axios.get("/dashboard/employees");
-    return response.data.data || response.data;
+export const getEmployees = async (page = 1) => {
+    const response = await axios.get("/dashboard/employees", {
+        params: {
+        page,
+        },
+    });
+    return response.data;
 };
 
 export const getEmployeesAnalytics = async () => {
