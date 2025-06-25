@@ -1,9 +1,20 @@
 import { analyticsData } from "@/constants/dashboard/AnalyticsData"
 import ConversionRate from "../icons/dashboard/ConversionRate"
 import CircularProgress from "../icons/dashboard/CircleProgress"
+import { useQuery } from "react-query";
+import { getAnalytics } from "@/api/analytics";
 
 // eslint-disable-next-line react/prop-types
 const AnalyticsCard = ({ icon: Icon, title, value, percentage, changeText, changeColor, progressBarColor = "#007EC1", arrowIcon: ArrowIcon }) => {
+
+    const { data: analytics = {} } = useQuery({
+        queryKey: ["analytics"],
+        queryFn: getAnalytics,
+    });
+
+
+    console.log(analytics)
+
     return (
         <div className="md:w-[350px] w-full h-full rounded-2xl px-4 py-8" style={{ boxShadow: '0px 2px 2px 0px rgba(0, 0, 0, 0.25)' }}>
             <div className="flex items-center gap-4">
