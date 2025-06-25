@@ -1,3 +1,5 @@
+import { getGraph } from '@/api/Graphs';
+import { useQuery } from 'react-query';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -11,6 +13,15 @@ const data = [
 ];
 
 const DashboardChart = () => {
+
+
+    const { data: GraphData = {} } = useQuery({
+        queryKey: ["GraphData"],
+        queryFn: getGraph,
+    });
+
+    console.log("Graph data are : ", GraphData)
+
     return (
         <div className="w-full">
             <div className="w-full h-64 max-w-4xl mx-auto">
