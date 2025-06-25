@@ -10,17 +10,23 @@ import Spinner from "../icons/general/Spinner";
 import { updateUser } from "@/api/user";
 import { useAuthStore } from "@/stores/userStore";
 import toast from "react-hot-toast";
+import LeftArrow from "../icons/analytics/LeftArrow";
+import RightArrow from "../icons/analytics/RightArrow";
 
 const ProfileTable = () => {
     const { user, setUser } = useAuthStore();
     const [isEditOpen, setEditOpen] = useState(false);
+    const [page, setPage] = useState(1);
     const queryClient = useQueryClient();
 
-    const { data: employees = [], isLoading } = useQuery({
-        queryKey: ["employees"],
-        queryFn: getEmployees,
+    const { data, isLoading } = useQuery({
+        queryKey: ["employees", page],
+        queryFn: () => getEmployees(page),
+        keepPreviousData: true,
     });
 
+    const employees = data?.data || [];
+    const totalPages = Math.ceil(data?.meta?.total / data?.meta?.per_page) || 1;
     const [profiles, setProfiles] = useState([]);
 
     const handleAddProfile = (newProfile) => {
@@ -50,6 +56,8 @@ const ProfileTable = () => {
             console.error(err);
         }
     };
+
+    if (isLoading) return <Spinner />;
 
     return (
         <div className="mt-8">
@@ -145,13 +153,36 @@ const ProfileTable = () => {
                                             </DialogHeader>
                                         </DialogContent>
                                     </Dialog>
-
-
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+
+                <div className="flex items-center justify-center gap-4 mt-14">
+                    <div className="w-11 h-[41px] border border-[#000000] rounded-[8px] flex items-center justify-center">
+                        {page}
+                    </div>
+                    <p>of {totalPages}</p>
+                    <button
+                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={!data?.links?.prev}
+                        aria-label="Previous Page"
+                        className="cursor-pointer disabled:opacity-50"
+                    >
+                        <LeftArrow />
+                    </button>
+
+                    <button
+                        onClick={() => setPage((prev) => prev + 1)}
+                        disabled={!data?.links?.next}
+                        aria-label="Next Page"
+                        className="cursor-pointer disabled:opacity-50"
+                    >
+                        <RightArrow />
+                    </button>
+
+                </div>
             </div>
         </div>
     );
