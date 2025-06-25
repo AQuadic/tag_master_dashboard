@@ -1,7 +1,7 @@
 import { getLinks } from '@/api/links'
 import EditIcon from '../icons/myaccount/EditIcon'
 import AddLink from './AddLink'
-import EditLink from './EditLink'
+// import EditLink from './EditLink'
 import emptyLinks from '/images/Account/emptyLinks.png'
 import {
     Dialog,
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import { useQuery } from 'react-query'
 import Spinner from '../icons/general/Spinner'
+import AddingLink from './AddingLink'
 
 const ManageLinks = () => {
 
@@ -34,7 +35,7 @@ const ManageLinks = () => {
                 <DialogContent className='lg:!max-w-[900px] w-full lg:h-auto h-[500px] overflow-auto'>
                     <DialogHeader>
                         <DialogDescription>
-                            <AddLink />
+                            <AddingLink />
                         </DialogDescription>
                     </DialogHeader>
                 </DialogContent>
@@ -82,7 +83,7 @@ const ManageLinks = () => {
                                 <DialogContent className='lg:!max-w-[900px] w-full lg:h-auto h-[500px] overflow-auto'>
                                     <DialogHeader>
                                         <DialogDescription>
-                                            <EditLink />
+                                            <AddLink />
                                         </DialogDescription>
                                     </DialogHeader>
                                 </DialogContent>

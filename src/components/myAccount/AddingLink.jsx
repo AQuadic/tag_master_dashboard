@@ -2,7 +2,7 @@ import SuperLink from "../icons/myaccount/SuperLink"
 import Youtube from "../icons/myaccount/Youtube"
 import EditImage from "./EditImage"
 
-const EditLink = () => {
+const AddingLink = () => {
     return (
         <section>
             <div className="flex flex-col items-center justify-center">
@@ -64,4 +64,4 @@ const EditLink = () => {
     )
 }
 
-export default EditLink
+export default AddingLink
