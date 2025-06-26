@@ -1,13 +1,11 @@
-// import ProfileHeader from "@/components/createprofile/ProfileHeader"
-import ProfileTable from "@/components/createprofile/ProfileTable"
+import ProfileTable from "@/components/createprofile/ProfileTable";
 
 const CreateProfile = () => {
-    return (
-        <section>
-            {/* <ProfileHeader /> */}
-            <ProfileTable />
-        </section>
-    )
-}
+  return (
+    <section>
+      <ProfileTable />
+    </section>
+  );
+};
 
-export default CreateProfile
+export default CreateProfile;
