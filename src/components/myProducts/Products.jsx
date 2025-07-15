@@ -39,11 +39,19 @@ const Products = () => {
             <div className="mt-[26px] flex flex-wrap items-center gap-[42px]">
                 {products.map((product, index) => (
                     <div key={index} className="md:w-[250px] w-full">
-                        <img
-                            src={product.images?.[0]?.url}
-                            alt={"Product Image"}
-                            className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px] object-cover"
-                        />
+                        {product.images?.[0]?.url ? (
+                            <img
+                                src={product.images[0].url}
+                                alt="Product Image"
+                                className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px] object-cover"
+                            />
+                        ) : (
+                            <img
+                                src="/images/Products/placeholder.jpg"
+                                alt="Placeholder Image"
+                            />
+                        )}
+
                         <div className="h-full pb-2 border-b border-r border-l border-[#000000] rounded-b-[12px] px-3">
                             <p className="text-[#000000] text-xs pt-1.5">{product.name.en}</p>
                             <div className="mt-2">
