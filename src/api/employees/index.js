@@ -14,7 +14,19 @@ export const getEmployeesAnalytics = async (page = 1) => {
   return response.data;
 };
 
-export const deleteUser = async (id) => {
-  const response = await axios.delete(`/dashboard/employees/${id}`);
+export const deleteUser = async (profile_id) => {
+  const formData = new FormData();
+  formData.append("profile_id", profile_id);
+
+  const response = await axios.post(
+    "/dashboard/delete-profile",
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
   return response.data;
 };
