@@ -9,9 +9,9 @@ export const getEmployees = async (page = 1) => {
   return response.data;
 };
 
-export const getEmployeesAnalytics = async () => {
-  const response = await axios.get("/dashboard/employees?with_analytics=121");
-  return response.data.data || response.data;
+export const getEmployeesAnalytics = async (page = 1) => {
+  const response = await axios.get(`/dashboard/employees?with_analytics=121&page=${page}`);
+  return response.data;
 };
 
 export const deleteUser = async (id) => {

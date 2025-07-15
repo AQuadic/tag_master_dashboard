@@ -38,7 +38,7 @@ const Products = () => {
             </div>
             <div className="mt-[26px] flex flex-wrap items-center gap-[42px]">
                 {products.map((product, index) => (
-                    <div key={index} className="md:w-[250px] w-full">
+                    <div key={index} className="md:w-[275px] w-full">
                         {product.images?.[0]?.url ? (
                             <img
                                 src={product.images[0].url}
