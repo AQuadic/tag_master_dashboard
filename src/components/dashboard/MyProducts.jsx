@@ -37,7 +37,7 @@ const MyProducts = () => {
                             srcSet={product.images[0].responsive_urls.join(', ')}
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 298px"
                             alt={product.name.en}
-                        // className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px]"
+                            className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px]"
                         />
                         <div className="h-full pb-2 border-b border-r border-l border-[#000000] rounded-b-[12px] px-3">
                             <p className="text-[#000000] text-xs pt-1.5">{product.name.en}</p>

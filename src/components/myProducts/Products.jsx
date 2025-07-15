@@ -42,7 +42,7 @@ const Products = () => {
                         <img
                             src={product.images?.[0]?.url}
                             alt={"Product Image"}
-                        // className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px] object-cover"
+                            className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px] object-cover"
                         />
                         <div className="h-full pb-2 border-b border-r border-l border-[#000000] rounded-b-[12px] px-3">
                             <p className="text-[#000000] text-xs pt-1.5">{product.name.en}</p>
