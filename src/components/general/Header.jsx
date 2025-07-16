@@ -10,9 +10,9 @@ const Header = () => {
             <div className='flex items-center md:gap-6 gap-1'>
                 <div>
                     <h1 className='text-[#000000] md:text-xl md:font-semibold'>{user?.name}</h1>
-                    <p className="text-[#979797] md:text-lg md:font-semibold">Team Leader</p>
+                    <p className="text-[#979797] md:text-lg md:font-semibold">{user?.email}</p>
                 </div>
-                <img src={profile} alt="Profile" />
+                <img src={user?.image?.url || profile} alt="Profile" className="w-[72px] h-[72px] rounded-full object-cover" />
             </div>
         </header>
     )
