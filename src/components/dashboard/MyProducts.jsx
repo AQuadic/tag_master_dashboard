@@ -10,7 +10,7 @@ const MyProducts = () => {
         queryKey: ["products"],
         queryFn: async () => {
             const response = await getProducts();
-            return response.data || [];
+            return response.data?.data || [];
         },
     });
 

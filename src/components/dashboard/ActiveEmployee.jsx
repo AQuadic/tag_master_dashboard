@@ -18,9 +18,6 @@ const ActiveEmployee = () => {
         return <Spinner />
     }
 
-    console.log("Current Page:", page);
-    console.log("Employees Data:", data);
-
     return (
         <section className="md:w-[360px] h-full border border-[#000000] rounded-2xl flex flex-col md:p-8 p-2 mt-4 md:mt-0">
             <h1 className="text-[#000000] md:text-2xl text-base font-medium mx-auto">Active employees</h1>
