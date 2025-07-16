@@ -13,13 +13,48 @@ import { deleteAccount } from '@/api/auth'
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/stores/userStore'
 import Cookies from 'js-cookie'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { updateUser } from '@/api/user'
 
 const EditProfile = () => {
     const { user, setUser } = useAuthStore();
     const [isDeleteOpen, setDeleteOpen] = useState(false);
     const [isEditOpen, setEditOpen] = useState(false);
+    const fileInputRef = useRef(null);
+
+    const handleUploadClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleImageSelect = async (event) => {
+        const file = event.target.files?.[0];
+
+        if (file) {
+            if (!file.type.startsWith("image/")) {
+                toast.error("يرجى اختيار ملف صورة صالح");
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                toast.error("حجم الصورة يجب أن يكون أقل من 5 ميجابايت");
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append("image", file);
+
+                console.log("Uploading:", formData.get("image"));
+
+                const updatedUser = await updateUser(formData);
+                setUser(updatedUser.user);
+                toast.success("تم تحديث الصورة الشخصية بنجاح");
+            } catch (error) {
+                toast.error(error?.response?.data?.message || "حدث خطأ أثناء تحديث الصورة");
+                console.error("Upload error:", error);
+            }
+        }
+    };
 
     const handleDeleteAccount = async () => {
         try {
@@ -39,7 +74,24 @@ const EditProfile = () => {
         <section>
             <div className="flex md:flex-row flex-col md:items-center justify-between w-full h-full bg-[#FFFFFF] rounded-[12px] mt-7 py-6 px-[38px]" style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
                 <div className='flex md:flex-row flex-col md:items-center gap-4'>
-                    <img className='w-[72px] h-[72px] rounded-full' src={tagmaster} alt="logo" />
+                    <div className="relative w-[72px] h-[72px]">
+                        <img className='w-[72px] h-[72px] rounded-full object-cover' src={user?.image?.url || tagmaster} alt="profile"
+                        />
+                        <button
+                            onClick={handleUploadClick}
+                            className="absolute bottom-0 right-0 bg-white border border-gray-300 rounded-full p-1 hover:scale-110 transition"
+                            title="Upload new image"
+                        >
+                            <EditIcon />
+                        </button>
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageSelect}
+                            className="hidden"
+                        />
+                    </div>
                     <div>
                         <h1 className='text-black md:text-xl text-sm font-medium'>{user?.name || "Tag Master"}</h1>
                         <p className='text-[#4A4A4A] md:text-lg text-xs md:mt-3 mt-1'>{user?.bio || "Technology Solutions"}</p>
