@@ -7,11 +7,17 @@ import ProfileHeader from "./ProfileHeader";
 import { useQuery, useQueryClient } from "react-query";
 import { deleteUser, getEmployees } from "@/api/employees";
 import Spinner from "../icons/general/Spinner";
-import { updateUser } from "@/api/user";
+// import { updateUser } from "@/api/user";
 import { useAuthStore } from "@/stores/userStore";
 import toast from "react-hot-toast";
 import LeftArrow from "../icons/analytics/LeftArrow";
 import RightArrow from "../icons/analytics/RightArrow";
+import Lock from "../icons/profile/Lock";
+import Phone from "../icons/profile/Phone";
+import Flag from "../icons/profile/Flag";
+import Email from "../icons/analytics/Email";
+import CardName from "../icons/paymentplan/CardName";
+import logo from '/images/Header/logo.svg';
 
 const ProfileTable = () => {
     const { user, setUser } = useAuthStore();
@@ -33,13 +39,14 @@ const ProfileTable = () => {
         setProfiles((prev) => [...prev, newProfile]);
     };
 
-    const handleUserUpdated = (updatedUser) => {
-        setProfiles((prev) =>
-            prev.map((p) => (p.id === updatedUser.id ? updatedUser : p))
-        );
-
-        queryClient.invalidateQueries(["employees"]);
-    };
+    const [formData, setFormData] = useState({
+        name: user?.name || "",
+        email: user?.email || "",
+        phone: user?.phone || "",
+        phone_country: user?.phone_country || "EG",
+        password: "",
+        password_confirmation: "",
+    });
 
     if (isLoading) return <Spinner />;
 
@@ -99,22 +106,91 @@ const ProfileTable = () => {
                                     {item.phone || "--"}
                                 </td>
                                 <td className="px-2 py-4 flex items-center gap-8">
-                                    <Dialog open={isEditOpen} onOpenChange={setEditOpen}>
+                                    <Dialog >
                                         <DialogTrigger>
                                             <Eye />
                                         </DialogTrigger>
                                         <DialogContent className="w-full h-auto overflow-auto">
                                             <DialogHeader>
                                                 <DialogDescription>
-                                                    <DataForm
-                                                        onSubmit={updateUser}
-                                                        onFinish={() => setEditOpen(false)}
-                                                        user={user}
-                                                        setUser={(updatedUser) => {
-                                                            setUser(updatedUser);
-                                                            handleUserUpdated(updatedUser);
-                                                        }}
-                                                    />
+                                                    <div className="flex flex-col items-center justify-between mt-6">
+                                                        <img src={logo} alt="Logo" className="mx-auto" />
+                                                        <div className="relative w-full max-w-[450px]">
+                                                            <input
+                                                                type="text"
+                                                                name="name"
+                                                                placeholder="Name"
+                                                                value={formData.name}
+                                                                className="w-full h-[58px] border rounded-[8px] mt-2 px-10"
+                                                                disabled
+                                                            />
+                                                            <div className="absolute top-[35%] left-2">
+                                                                <CardName />
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="relative w-full max-w-[450px]">
+                                                            <input
+                                                                type="email"
+                                                                name="email"
+                                                                placeholder="Email"
+                                                                value={formData.email}
+                                                                className="w-full h-[58px] border rounded-[8px] mt-2 px-10"
+                                                                disabled
+                                                            />
+                                                            <div className="absolute top-[45%] left-2">
+                                                                <Email />
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="mt-6 flex md:flex-row flex-col items-center gap-[22px] w-full max-w-[450px]">
+                                                            <div className="md:w-[101px] w-full h-[58px] border rounded-[8px] flex items-center justify-center gap-4">
+                                                                <p>+20</p>
+                                                                <Flag />
+                                                            </div>
+                                                            <div className="relative w-full">
+                                                                <input
+                                                                    type="text"
+                                                                    name="phone"
+                                                                    placeholder="971-123456789"
+                                                                    value={formData.phone}
+                                                                    className="w-full h-[58px] border rounded-[8px] px-9"
+                                                                    disabled
+                                                                />
+                                                                <div className="absolute top-[35%] left-2">
+                                                                    <Phone />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="relative w-full max-w-[450px]">
+                                                            <input
+                                                                type="password"
+                                                                name="password"
+                                                                placeholder="Password"
+                                                                value={formData.password}
+                                                                className="w-full h-[58px] border rounded-[8px] mt-6 px-9"
+                                                                disabled
+                                                            />
+                                                            <div className="absolute top-[50%] left-2">
+                                                                <Lock />
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="relative w-full max-w-[450px]">
+                                                            <input
+                                                                type="password"
+                                                                name="password_confirmation"
+                                                                placeholder="Confirm Password"
+                                                                value={formData.password_confirmation}
+                                                                className="w-full h-[58px] border rounded-[8px] mt-6 px-9"
+                                                                disabled
+                                                            />
+                                                            <div className="absolute top-[50%] left-2">
+                                                                <Lock />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </DialogDescription>
                                             </DialogHeader>
                                         </DialogContent>
