@@ -58,13 +58,13 @@ const Products = () => {
                             <img
                                 src={product.images[0].url}
                                 alt="Product"
-                                className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px] object-cover"
+                                className="w-[298px] h-[149px] rounded-tr-[12px] rounded-tl-[12px] object-cover object-center"
                             />
                         ) : (
                             <img
                                 src="/images/Products/placeholder.jpg"
                                 alt="Placeholder Image"
-                                className="w-[298px] h-[310px] object-cover"
+                                className="w-[298px] h-[149px] rounded-tr-[12px] rounded-tl-[12px] object-cover object-center"
                             />
                         )}
 
