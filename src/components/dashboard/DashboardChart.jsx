@@ -1,33 +1,22 @@
 import { getGraph } from '@/api/Graphs';
 import { useQuery } from 'react-query';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-
-const data = [
-    { day: 'SA', views: 250, clicks: 250 },
-    { day: 'SU', views: 1500, clicks: 150 },
-    { day: 'MO', views: 800, clicks: 500 },
-    { day: 'TU', views: 2200, clicks: 800 },
-    { day: 'WE', views: 300, clicks: 1800 },
-    { day: 'TH', views: 400, clicks: 2000 },
-    { day: 'FR', views: 2800, clicks: 1600 }
-];
+import Spinner from '../icons/general/Spinner';
 
 const DashboardChart = () => {
-
-
-    const { data: GraphData = {} } = useQuery({
+    const { data: GraphData, isLoading } = useQuery({
         queryKey: ["GraphData"],
         queryFn: getGraph,
     });
+    if (isLoading) return <div><Spinner /></div>;
 
-    console.log("Graph data are : ", GraphData)
 
     return (
         <div className="w-full">
             <div className="w-full h-64 max-w-4xl mx-auto">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart
-                        data={data}
+                        data={GraphData?.view?.trend?.this || []}
                         margin={{
                             top: 20,
                             right: 30,
@@ -37,7 +26,7 @@ const DashboardChart = () => {
                     >
                         <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                         <XAxis
-                            dataKey="day"
+                            dataKey="date"
                             axisLine={false}
                             tickLine={false}
                             tick={{ fontSize: 12, fill: '#6b7280' }}
@@ -46,23 +35,15 @@ const DashboardChart = () => {
                             axisLine={false}
                             tickLine={false}
                             tick={{ fontSize: 12, fill: '#6b7280' }}
-                            domain={[0, 3000]}
+                            domain={[0, 'auto']}
                         />
                         <Line
                             type="monotone"
-                            dataKey="views"
+                            dataKey="aggregate"
                             stroke="#3b82f6"
                             strokeWidth={2}
                             dot={{ fill: '#3b82f6', strokeWidth: 6, r: 4 }}
                             activeDot={{ r: 6, stroke: '#3b82f6', strokeWidth: 2 }}
-                        />
-                        <Line
-                            type="monotone"
-                            dataKey="clicks"
-                            stroke="#a855f7"
-                            strokeWidth={2}
-                            dot={{ fill: '#a855f7', strokeWidth: 2, r: 4 }}
-                            activeDot={{ r: 6, stroke: '#a855f7', strokeWidth: 2 }}
                         />
                     </LineChart>
                 </ResponsiveContainer>
