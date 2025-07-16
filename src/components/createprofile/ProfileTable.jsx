@@ -22,6 +22,7 @@ import logo from '/images/Header/logo.svg';
 const ProfileTable = () => {
     const { user, setUser } = useAuthStore();
     const [isEditOpen, setEditOpen] = useState(false);
+    const [selectedProfile, setSelectedProfile] = useState(null);
     const [page, setPage] = useState(1);
     const queryClient = useQueryClient();
 
@@ -107,8 +108,13 @@ const ProfileTable = () => {
                                 </td>
                                 <td className="px-2 py-4 flex items-center gap-8">
                                     <Dialog >
-                                        <DialogTrigger>
-                                            <Eye />
+                                        <DialogTrigger asChild>
+                                            <button
+                                                className="p-0 m-0 bg-transparent border-none cursor-pointer"
+                                                onClick={() => setSelectedProfile(item)}
+                                            >
+                                                <Eye />
+                                            </button>
                                         </DialogTrigger>
                                         <DialogContent className="w-full h-auto overflow-auto">
                                             <DialogHeader>
@@ -120,7 +126,7 @@ const ProfileTable = () => {
                                                                 type="text"
                                                                 name="name"
                                                                 placeholder="Name"
-                                                                value={formData.name}
+                                                                value={selectedProfile?.name || ""}
                                                                 className="w-full h-[58px] border rounded-[8px] mt-2 px-10"
                                                                 disabled
                                                             />
@@ -134,7 +140,7 @@ const ProfileTable = () => {
                                                                 type="email"
                                                                 name="email"
                                                                 placeholder="Email"
-                                                                value={formData.email}
+                                                                value={selectedProfile?.email || ""}
                                                                 className="w-full h-[58px] border rounded-[8px] mt-2 px-10"
                                                                 disabled
                                                             />
@@ -153,7 +159,7 @@ const ProfileTable = () => {
                                                                     type="text"
                                                                     name="phone"
                                                                     placeholder="971-123456789"
-                                                                    value={formData.phone}
+                                                                    value={selectedProfile?.phone || ""}
                                                                     className="w-full h-[58px] border rounded-[8px] px-9"
                                                                     disabled
                                                                 />
@@ -168,7 +174,7 @@ const ProfileTable = () => {
                                                                 type="password"
                                                                 name="password"
                                                                 placeholder="Password"
-                                                                value={formData.password}
+                                                                value={selectedProfile?.password || ""}
                                                                 className="w-full h-[58px] border rounded-[8px] mt-6 px-9"
                                                                 disabled
                                                             />
@@ -182,7 +188,7 @@ const ProfileTable = () => {
                                                                 type="password"
                                                                 name="password_confirmation"
                                                                 placeholder="Confirm Password"
-                                                                value={formData.password_confirmation}
+                                                                value={selectedProfile?.password_confirmation || ""}
                                                                 className="w-full h-[58px] border rounded-[8px] mt-6 px-9"
                                                                 disabled
                                                             />
