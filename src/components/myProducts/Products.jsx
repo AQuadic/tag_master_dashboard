@@ -4,17 +4,32 @@ import EmptyState from "./EmptyState"
 import { useQuery } from "react-query"
 import { getProducts } from "@/api/products"
 import Spinner from "../icons/general/Spinner"
+import LeftArrow from "../icons/analytics/LeftArrow";
+import RightArrow from "../icons/analytics/RightArrow";
+
 const Products = () => {
     const [activeProducts, setActiveProducts] = useState("All Product")
+    const [currentPage, setCurrentPage] = useState(1);
     const productsFilter = ["All Product", "NFC Business Card", "Poket NFC Cardholder", "NFC Sticker"]
 
-    const { data: products = [], isLoading } = useQuery({
-        queryKey: ["products"],
-        queryFn: async () => {
-            const response = await getProducts();
-            return response.data || [];
-        },
+    const { data: response, isLoading } = useQuery({
+        queryKey: ["products", currentPage],
+        queryFn: () => getProducts(currentPage),
     });
+
+    const products = response?.data?.data || [];
+    const currentPageNum = response?.data?.current_page || 1;
+    const hasNext = !!response?.data?.next_page_url;
+    const totalPages =
+        response?.data?.last_page || (hasNext ? currentPageNum + 1 : currentPageNum);
+
+    const handlePrev = () => {
+        setCurrentPage((prev) => Math.max(prev - 1, 1));
+    };
+
+    const handleNext = () => {
+        setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    };
 
     if (isLoading) {
         return <Spinner />
@@ -23,16 +38,16 @@ const Products = () => {
     return (
         <section>
             <div className="flex flex-wrap items-center gap-5">
-                {productsFilter.map((products) => (
+                {productsFilter.map((product) => (
                     <div
-                        key={products}
-                        onClick={() => setActiveProducts(products)}
-                        className={`md:py-3 md:px-6 p-1 border-[0.88px] border-[#000000] rounded-[7px] flex items-center justify-center cursor-pointer transition-colors ${activeProducts === products
+                        key={product}
+                        onClick={() => setActiveProducts(product)}
+                        className={`md:py-3 md:px-6 p-1 border-[0.88px] border-[#000000] rounded-[7px] flex items-center justify-center cursor-pointer transition-colors ${activeProducts === product
                             ? "bg-[#002847] text-white border-none"
                             : "bg-transparent text-[#000000]"
                             }`}
                     >
-                        <p className="md:text-[21.02px] text-base font-medium">{products}</p>
+                        <p className="md:text-[21.02px] text-base font-medium">{product}</p>
                     </div>
                 ))}
             </div>
@@ -42,26 +57,27 @@ const Products = () => {
                         {product.images?.[0]?.url ? (
                             <img
                                 src={product.images[0].url}
-                                alt="Product Image"
+                                alt="Product"
                                 className="w-[298px] h-[310px] rounded-tr-[12px] rounded-tl-[12px] object-cover"
                             />
                         ) : (
                             <img
                                 src="/images/Products/placeholder.jpg"
                                 alt="Placeholder Image"
+                                className="w-[298px] h-[310px] object-cover"
                             />
                         )}
 
                         <div className="h-full pb-2 border-b border-r border-l border-[#000000] rounded-b-[12px] px-3">
-                            <p className="text-[#000000] text-xs pt-1.5">{product.name.en}</p>
+                            <p className="text-[#000000] text-xs pt-1.5">{product.name?.en}</p>
                             <div className="mt-2">
                                 <p className="text-sm text-black font-medium">
                                     Price: {product.price}
                                 </p>
 
                                 {product.options?.length > 0 && (
-                                    <div className={`text-xs font-medium mt-1 ${product.options.some(option => option.in_stock) ? 'text-green-600' : 'text-red-600'}`}>
-                                        {product.options.some(option => option.in_stock) ? 'In Stock' : 'Out of Stock'}
+                                    <div className={`text-xs font-medium mt-1 ${product.options.some((option) => option.in_stock) ? 'text-green-600' : 'text-red-600'}`}>
+                                        {product.options.some((option) => option.in_stock) ? 'In Stock' : 'Out of Stock'}
                                     </div>
                                 )}
 
@@ -101,6 +117,44 @@ const Products = () => {
 
             {products.length === 0 && <EmptyState />}
 
+            {totalPages > 1 && (
+                <div className="flex items-center justify-center mt-10 gap-4 flex-wrap">
+                    <div className="w-11 h-[41px] border border-[#000000] rounded-[8px] flex items-center justify-center">
+                        {currentPage}
+                    </div>
+                    <p>of {totalPages}</p>
+                    <button
+                        onClick={handlePrev}
+                        disabled={currentPage === 1}
+                        className="cursor-pointer"
+                        aria-label="Previous Page"
+                    >
+                        <LeftArrow />
+                    </button>
+
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                        <button
+                            key={pageNum}
+                            onClick={() => setCurrentPage(pageNum)}
+                            className={`w-8 h-8 rounded-md text-sm font-medium ${pageNum === currentPage
+                                ? "bg-black text-white"
+                                : "bg-transparent text-black"
+                                } border border-[#000000]`}
+                        >
+                            {pageNum}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={handleNext}
+                        disabled={currentPage === totalPages}
+                        className="cursor-pointer"
+                        aria-label="Next Page"
+                    >
+                        <RightArrow />
+                    </button>
+                </div>
+            )}
 
             <div className="flex items-center justify-center mt-32">
                 <button className="md:w-[255px] w-full h-[59px] bg-[#002847] rounded-[12px] text-[#FFFFFF] text-2xl font-medium">Buy a product</button>
