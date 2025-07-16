@@ -1,6 +1,6 @@
 const Facebook = () => {
     return (
-        <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect x="0.0341797" y="0.343018" width="36" height="36" fill="url(#pattern0_1546_54)" />
             <defs>
                 <pattern id="pattern0_1546_54" patternContentUnits="objectBoundingBox" width="1" height="1">

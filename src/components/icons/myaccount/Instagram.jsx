@@ -1,6 +1,6 @@
 const Instagram = () => {
     return (
-        <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect y="0.692383" width="42" height="42" fill="url(#pattern0_1546_302)" />
             <defs>
                 <pattern id="pattern0_1546_302" patternContentUnits="objectBoundingBox" width="1" height="1">

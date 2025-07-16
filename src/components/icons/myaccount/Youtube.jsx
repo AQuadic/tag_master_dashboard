@@ -1,6 +1,6 @@
 const Youtube = () => {
     return (
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect width="80" height="80" fill="url(#pattern0_1096_1254)" />
             <defs>
                 <pattern id="pattern0_1096_1254" patternContentUnits="objectBoundingBox" width="1" height="1">

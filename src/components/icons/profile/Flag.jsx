@@ -1,6 +1,6 @@
 const Flag = () => {
     return (
-        <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect y="0.666748" width="26.6667" height="26.6667" fill="url(#pattern0_609_4229)" />
             <defs>
                 <pattern id="pattern0_609_4229" patternContentUnits="objectBoundingBox" width="1" height="1">

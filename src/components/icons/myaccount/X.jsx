@@ -1,6 +1,6 @@
 const X = () => {
     return (
-        <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect y="0.343018" width="34.75" height="34.75" fill="url(#pattern0_1546_284)" />
             <defs>
                 <pattern id="pattern0_1546_284" patternContentUnits="objectBoundingBox" width="1" height="1">
