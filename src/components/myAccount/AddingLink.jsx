@@ -1,8 +1,39 @@
+import { useState } from 'react'
 import SuperLink from "../icons/myaccount/SuperLink"
 import Youtube from "../icons/myaccount/Youtube"
 import EditImage from "./EditImage"
+import { addLinks } from '@/api/links'
+import { useAuthStore } from '@/stores/userStore'
+import toast from 'react-hot-toast'
 
-const AddingLink = () => {
+const AddingLink = ({ onSuccess }) => {
+    const { user } = useAuthStore();
+
+    const [formData, setFormData] = useState({
+        profile_id: user?.id || "",
+        name: "",
+        link: ""
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await addLinks(formData);
+            console.log("Add link response:", response);
+            if (onSuccess) onSuccess();
+        } catch (error) {
+            toast.error("Error adding link")
+        }
+    };
+
     return (
         <section>
             <div className="flex flex-col items-center justify-center">
@@ -36,30 +67,44 @@ const AddingLink = () => {
                 </label>
             </div>
 
-            <div className="mt-12">
-                <label htmlFor="address" className="text-[#000000] text-base">Link Address</label>
-                <input
-                    type="text"
-                    name="addressLink"
-                    id="addressLink"
-                    placeholder="Youtube"
-                    className="w-full h-[72px] bg-[#FBFBFB] border-[0.5px] border-[#979797] rounded-[12px] mt-2.5 px-2 focus:outline-none"
-                />
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className="mt-12">
+                    <label htmlFor="name" className="text-[#000000] text-base">Platform Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Youtube"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="w-full h-[72px] bg-[#FBFBFB] border-[0.5px] border-[#979797] rounded-[12px] mt-2.5 px-2 focus:outline-none"
+                    />
+                </div>
 
-            <div className="mt-4">
-                <label htmlFor="text" className="text-[#000000] text-base">Link text</label>
-                <input
-                    type="text"
-                    name="textLink"
-                    id="textLink"
-                    placeholder="https://www.youtube.com/"
-                    className="w-full h-[72px] bg-[#FBFBFB] border-[0.5px] border-[#979797] rounded-[12px] mt-2.5 px-2 focus:outline-none"
-                />
-            </div>
+                <div className="mt-4">
+                    <label htmlFor="link" className="text-[#000000] text-base">Link URL</label>
+                    <input
+                        type="text"
+                        name="link"
+                        id="link"
+                        placeholder="https://www.youtube.com/"
+                        value={formData.link}
+                        onChange={handleChange}
+                        className="w-full h-[72px] bg-[#FBFBFB] border-[0.5px] border-[#979797] rounded-[12px] mt-2.5 px-2 focus:outline-none"
+                    />
+                </div>
 
-            <button className="w-full h-[74px] bg-[#000000] rounded-[12px] mt-9 text-[#FFFFFF] text-xl font-medium">Add</button>
-            <button className="text-[#F80D0D] text-[22px] font-medium mt-9 flex justify-center mx-auto">Cancel</button>
+                <button
+                    type="submit"
+                    className="w-full h-[74px] bg-[#000000] rounded-[12px] mt-9 text-[#FFFFFF] text-xl font-medium"
+                >
+                    Add
+                </button>
+            </form>
+
+            <button className="text-[#F80D0D] text-[22px] font-medium mt-9 flex justify-center mx-auto">
+                Cancel
+            </button>
         </section>
     )
 }

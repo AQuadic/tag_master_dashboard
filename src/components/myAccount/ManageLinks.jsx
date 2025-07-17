@@ -1,4 +1,5 @@
 import { getLinks } from '@/api/links'
+import { useAuthStore } from '@/stores/userStore'
 import EditIcon from '../icons/myaccount/EditIcon'
 import AddLink from './AddLink'
 // import EditLink from './EditLink'
@@ -13,20 +14,32 @@ import {
 import { useQuery } from 'react-query'
 import Spinner from '../icons/general/Spinner'
 import AddingLink from './AddingLink'
+import { useState, useEffect } from 'react'
 
 const ManageLinks = () => {
+    const { user } = useAuthStore();
+    const [open, setOpen] = useState(false);
 
-    const { data: links = [], isLoading } = useQuery({
-        queryKey: ["links"],
-        queryFn: getLinks,
+    const { data: links = [], isLoading, refetch } = useQuery({
+        queryKey: ["user-links", user?.id],
+        queryFn: () => getLinks(user?.id),
+        enabled: !!user?.id,
     });
 
-    if (isLoading) {
-        return <Spinner />
-    }
+    const handleAddSuccess = () => {
+        setOpen(false);
+        refetch();
+    };
+
+    useEffect(() => {
+        console.log("Fetched Links:", links);
+    }, [links]);
+
+    if (isLoading) return <Spinner />;
+
     return (
         <section>
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger className='ml-auto flex'>
                     <div className="mt-7 flex justify-end">
                         <button className="w-[140px] h-14 border-2 border-[#002847] rounded-[50px]">Add link</button>
@@ -35,7 +48,7 @@ const ManageLinks = () => {
                 <DialogContent className='lg:!max-w-[900px] w-full lg:h-auto h-[500px] overflow-auto'>
                     <DialogHeader>
                         <DialogDescription>
-                            <AddingLink />
+                            <AddingLink onSuccess={handleAddSuccess} />
                         </DialogDescription>
                     </DialogHeader>
                 </DialogContent>
@@ -53,24 +66,20 @@ const ManageLinks = () => {
                             className='w-full h-full bg-[#FFFFFF] rounded-[12px] py-[29px] md:px-[38px] px-4 mt-4 flex md:flex-row flex-col md:items-center justify-between'
                             style={{ boxShadow: '0px 1px 2px 0px #00000040' }}
                         >
-                            <div className='flex items-center gap-4'>
-                                <div className='flex items-center gap-[14px]'>
-                                    <img
-                                        src={data.image?.url}
-                                        alt={data.name.en}
-                                        className="w-[40px] h-[40px] object-contain"
-                                    />
-                                    <div className='text-[#000000] text-lg'>
-                                        {data.name.en} <br />
-                                        <span className='text-sm text-gray-500'>
-                                            {data.category?.name.en}
-                                        </span>
-                                    </div>
+                            <div className='flex items-center gap-4 flex-wrap'>
+                                <img
+                                    src={data.image?.url}
+                                    alt={data.name.en}
+                                    className="w-[40px] h-[40px] object-contain"
+                                />
+                                <div className='text-[#000000] text-lg'>
+                                    {data.name?.en || "Unnamed Link"} <br />
                                 </div>
-
-                                <p className='text-[#002847] text-base font-medium mt-4 md:mt-0 break-all'>
-
-                                </p>
+                                {data.link && (
+                                    <p className='text-[#002847] text-base font-medium mt-4 md:mt-0 break-all'>
+                                        {data.link}
+                                    </p>
+                                )}
                             </div>
 
                             <Dialog>
