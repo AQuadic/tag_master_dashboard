@@ -11,7 +11,7 @@ const Layout = () => {
         <Header />
       </div>
       <div className="flex gap-6 container">
-        <div className="mr-[380px]">
+        <div className="xl:mr-[380px] mr-24">
           <Sidebar />
         </div>
         <AnimatePresence mode="wait">
