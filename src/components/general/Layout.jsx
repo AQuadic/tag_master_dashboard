@@ -6,9 +6,11 @@ import Sidebar from "./Sidebar";
 const Layout = () => {
   const outlet = useOutlet();
   return (
-    <div className="container">
-      <Header />
-      <div className="flex gap-6">
+    <div className="">
+      <div className="pb-[90px]">
+        <Header />
+      </div>
+      <div className="flex gap-6 container">
         <div className="mr-[380px]">
           <Sidebar />
         </div>
