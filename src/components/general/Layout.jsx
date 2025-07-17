@@ -1,7 +1,7 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useOutlet } from "react-router";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { AnimatePresence, motion } from "framer-motion";
 
 const Layout = () => {
   const outlet = useOutlet();
@@ -9,7 +9,9 @@ const Layout = () => {
     <div className="container">
       <Header />
       <div className="flex gap-6">
-        <Sidebar />
+        <div className="mr-[380px]">
+          <Sidebar />
+        </div>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

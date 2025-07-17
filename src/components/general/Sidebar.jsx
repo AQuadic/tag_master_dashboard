@@ -1,6 +1,6 @@
 import { SidebarLinks } from "@/constants/sidbar/SidebarLinks";
-import { useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router";
+import { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import LogoutConfirm from "../logout/LogoutConfirm";
 
 const Sidebar = () => {
@@ -17,10 +17,10 @@ const Sidebar = () => {
   const getCurrentActiveTitle = () => {
     const currentPath = location.pathname;
 
-    const activeLink = SidebarLinks.find(link =>
-      link.path && currentPath === `/${link.path}`
+    const activeLink = SidebarLinks.find(
+      (link) => link.path && currentPath === `/${link.path}`
     );
-    return activeLink ? activeLink.title : 'Dashboard';
+    return activeLink ? activeLink.title : "Dashboard";
   };
 
   const activeComponent = getCurrentActiveTitle();
@@ -31,7 +31,7 @@ const Sidebar = () => {
         const rect = logoutRef.current.getBoundingClientRect();
         setLogoutPosition({
           top: rect.top,
-          left: rect.right + 10
+          left: rect.right + 10,
         });
       }
       setShowLogoutPopup(!showLogoutPopup);
@@ -48,7 +48,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex-shrink-0 relative">
+    <div className="flex-shrink-0 fixed">
       <aside>
         <div className="xl:w-[358px] w-20 min-h-[calc(100dvh-120px)] bg-[#002847] rounded-2xl mt-6 ml-6 flex flex-col xl:p-14 p-3">
           <div className="flex flex-col gap-10">
@@ -56,10 +56,11 @@ const Sidebar = () => {
               ({ icon: Icon, activeIcon: ActiveIcon, title, path }, index) => (
                 <div
                   key={index}
-                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${activeComponent === title
-                    ? "bg-[#E6F3F9] shadow-md"
-                    : "hover:bg-[#E6F3F9]"
-                    }`}
+                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${
+                    activeComponent === title
+                      ? "bg-[#E6F3F9] shadow-md"
+                      : "hover:bg-[#E6F3F9]"
+                  }`}
                   onClick={() => handleItemClick(title, path)}
                 >
                   <div className="mr-3">
@@ -67,18 +68,20 @@ const Sidebar = () => {
                       <ActiveIcon className={`transition-colors text-black`} />
                     ) : (
                       <Icon
-                        className={`transition-colors ${activeComponent === title
-                          ? "text-black"
-                          : "text-[#EDEDED]"
-                          }`}
+                        className={`transition-colors ${
+                          activeComponent === title
+                            ? "text-black"
+                            : "text-[#EDEDED]"
+                        }`}
                       />
                     )}
                   </div>
                   <p
-                    className={`text-xl font-medium transition-colors xl:flex hidden ${activeComponent === title
-                      ? "text-black"
-                      : "text-[#EDEDED] group-hover:text-black"
-                      }`}
+                    className={`text-xl font-medium transition-colors xl:flex hidden ${
+                      activeComponent === title
+                        ? "text-black"
+                        : "text-[#EDEDED] group-hover:text-black"
+                    }`}
                   >
                     {title}
                   </p>
@@ -96,41 +99,46 @@ const Sidebar = () => {
                     title === "Switch Profile"
                       ? switchProfileRef
                       : title === "Logout"
-                        ? logoutRef
-                        : null
+                      ? logoutRef
+                      : null
                   }
-                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${(title === "Switch Profile" && showSwitchPopup) ||
+                  className={`group flex items-center gap-4 px-4 py-4 cursor-pointer rounded-2xl transition-all duration-200 ${
+                    (title === "Switch Profile" && showSwitchPopup) ||
                     (title === "Logout" && showLogoutPopup)
-                    ? "bg-[#E6F3F9] shadow-md"
-                    : activeComponent === title
+                      ? "bg-[#E6F3F9] shadow-md"
+                      : activeComponent === title
                       ? "bg-[#E6F3F9] shadow-md"
                       : "hover:bg-[#E6F3F9]"
-                    }`}
+                  }`}
                   onClick={() => handleItemClick(title, path)}
                 >
                   <div className="mr-3">
-                    {((activeComponent === title && ActiveIcon) ||
-                      (title === "Switch Profile" && showSwitchPopup && ActiveIcon) ||
-                      (title === "Logout" && showLogoutPopup && ActiveIcon)) ? (
+                    {(activeComponent === title && ActiveIcon) ||
+                    (title === "Switch Profile" &&
+                      showSwitchPopup &&
+                      ActiveIcon) ||
+                    (title === "Logout" && showLogoutPopup && ActiveIcon) ? (
                       <ActiveIcon className={`transition-colors text-black`} />
                     ) : (
                       <Icon
-                        className={`transition-colors ${activeComponent === title ||
+                        className={`transition-colors ${
+                          activeComponent === title ||
                           (title === "Switch Profile" && showSwitchPopup) ||
                           (title === "Logout" && showLogoutPopup)
-                          ? "text-black"
-                          : "text-[#EDEDED]"
-                          }`}
+                            ? "text-black"
+                            : "text-[#EDEDED]"
+                        }`}
                       />
                     )}
                   </div>
                   <p
-                    className={`text-xl font-medium transition-colors xl:flex hidden ${activeComponent === title ||
+                    className={`text-xl font-medium transition-colors xl:flex hidden ${
+                      activeComponent === title ||
                       (title === "Switch Profile" && showSwitchPopup) ||
                       (title === "Logout" && showLogoutPopup)
-                      ? "text-black"
-                      : "text-[#EDEDED] group-hover:text-black"
-                      }`}
+                        ? "text-black"
+                        : "text-[#EDEDED] group-hover:text-black"
+                    }`}
                   >
                     {title}
                   </p>
