@@ -19,22 +19,18 @@ import { useState, useEffect } from 'react'
 const ManageLinks = () => {
     const { user } = useAuthStore();
     const [open, setOpen] = useState(false);
+    const profileId = user?.profile?.[0]?.id;
 
     const { data: links = [], isLoading, refetch } = useQuery({
-        queryKey: ["user-links", user?.id],
-        queryFn: () => getLinks(user?.id),
-        enabled: !!user?.id,
+        queryKey: ["user-links", profileId],
+        queryFn: () => getLinks(profileId),
+        enabled: !!profileId,
     });
 
     const handleAddSuccess = () => {
         setOpen(false);
         refetch();
     };
-
-    useEffect(() => {
-        console.log("Fetched Links:", links);
-    }, [links]);
-
     if (isLoading) return <Spinner />;
 
     return (
@@ -69,11 +65,11 @@ const ManageLinks = () => {
                             <div className='flex items-center gap-4 flex-wrap'>
                                 <img
                                     src={data.image?.url}
-                                    alt={data.name.en}
+                                    alt={data.name}
                                     className="w-[40px] h-[40px] object-contain"
                                 />
                                 <div className='text-[#000000] text-lg'>
-                                    {data.name?.en || "Unnamed Link"} <br />
+                                    {data.name || "Unnamed Link"} <br />
                                 </div>
                                 {data.link && (
                                     <p className='text-[#002847] text-base font-medium mt-4 md:mt-0 break-all'>

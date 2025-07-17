@@ -1,7 +1,9 @@
 import { axios } from "@/components/lib/axios";
 
-export const getLinks = async (id) => {
-    const response = await axios.get(`/user-link/${id}`);
+export const getLinks = async (profile_id) => {
+    const response = await axios.get('/user-link', {
+  params: { profile_id }
+});
     return response.data;
 
 };

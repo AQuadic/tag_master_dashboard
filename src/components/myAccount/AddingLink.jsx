@@ -10,7 +10,7 @@ const AddingLink = ({ onSuccess }) => {
     const { user } = useAuthStore();
 
     const [formData, setFormData] = useState({
-        profile_id: user?.id || "",
+        profile_id: user?.profile?.[0]?.id || "",
         name: "",
         link: ""
     });
@@ -25,11 +25,17 @@ const AddingLink = ({ onSuccess }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const payload = {
+            ...formData,
+            profile_id: user?.profile?.[0]?.id,
+        };
+
         try {
-            const response = await addLinks(formData);
-            console.log("Add link response:", response);
+            await addLinks(payload);
+            toast.success("Link added successfully")
             if (onSuccess) onSuccess();
-        } catch (error) {
+        } catch {
             toast.error("Error adding link")
         }
     };
