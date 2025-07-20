@@ -1,10 +1,14 @@
 import { editLinks } from "@/api/links";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Search from "../icons/myaccount/Search";
 
 const EditLinks = ({ linkData, onSuccess }) => {
     const [link, setLink] = useState(linkData.link || "");
     const [name, setName] = useState(linkData.name || "");
+
+    const [activeFilter, setActiveFilter] = useState("All")
+    const typesFilter = ["All", "Social media", "Business", "Creative", "Payments", "Media", "Other"]
 
     const handleUpdate = async () => {
         try {
@@ -22,9 +26,35 @@ const EditLinks = ({ linkData, onSuccess }) => {
 
     return (
         <div>
-            <h2 className="text-xl font-semibold mb-4">Edit Link</h2>
+            <div className="relative">
+                <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    className="w-full h-[65px] bg-[#FBFBFB] rounded-[50px] px-10"
+                    placeholder="Search"
+                />
+                <div className="absolute top-3">
+                    <Search />
+                </div>
+            </div>
 
-            <div className="mb-4">
+            <div className="flex flex-wrap items-center gap-4 mt-8">
+                {typesFilter.map((filter) => (
+                    <div
+                        key={filter}
+                        onClick={() => setActiveFilter(filter)}
+                        className={`py-2 px-3 rounded-[7px] flex items-center justify-center cursor-pointer transition-colors ${activeFilter === filter
+                            ? "bg-[#002847] text-white border-none"
+                            : "bg-[#FBFBFB] text-[#000000]"
+                            }`}
+                    >
+                        <p className="text-[21.02px] font-medium">{filter}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div className="my-4">
                 <label className="block mb-1 font-medium">Name</label>
                 <input
                     type="text"
