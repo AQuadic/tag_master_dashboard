@@ -13,3 +13,15 @@ export const addLinks = async (data) => {
   const response = await axios.post("/user-link", data);
   return response.data;
 };
+
+
+export const editLinks = async (id, data) => {
+  const formData = new FormData();
+  for (const key in data) {
+    if (data[key] !== undefined && data[key] !== null) {
+      formData.append(key, data[key]);
+    }
+  }
+  const response = await axios.post(`/user-link/${id}`, formData);
+  return response.data;
+};

@@ -1,7 +1,7 @@
 import { getLinks } from "@/api/links";
 import { useAuthStore } from "@/stores/userStore";
 import EditIcon from "../icons/myaccount/EditIcon";
-import AddLink from "./AddLink";
+import EditLinks from "./EditLinks";
 // import EditLink from './EditLink'
 import {
   Dialog,
@@ -15,11 +15,14 @@ import { useQuery } from "react-query";
 import Spinner from "../icons/general/Spinner";
 import AddingLink from "./AddingLink";
 import emptyLinks from "/images/Account/emptyLinks.png";
+import Cookies from "js-cookie";
 
 const ManageLinks = () => {
   const { user } = useAuthStore();
   const [open, setOpen] = useState(false);
-  const profileId = user?.profile?.[0]?.id;
+  const profileId = Cookies.get("profile_id");
+  const [editOpen, setEditOpen] = useState(false);
+  const [selectedLink, setSelectedLink] = useState(null);
 
   const {
     data: links = [],
@@ -35,6 +38,13 @@ const ManageLinks = () => {
     setOpen(false);
     refetch();
   };
+
+  const handleEditSuccess = () => {
+    setEditOpen(false);
+    setSelectedLink(null);
+    refetch();
+  };
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -88,25 +98,32 @@ const ManageLinks = () => {
                 )}
               </div>
 
-              <Dialog>
-                <DialogTrigger className="ml-auto flex">
-                  <div className="flex items-center justify-center gap-2 w-[78px] h-10 border rounded-[25px] mt-4 md:mt-0 cursor-pointer">
-                    <p className="text-[#002847] text-base">Edit</p>
-                    <EditIcon />
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="lg:!max-w-[900px] w-full lg:h-auto h-[500px] overflow-auto">
-                  <DialogHeader>
-                    <DialogDescription>
-                      <AddLink />
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
+              <button
+                className="flex items-center justify-center gap-2 w-[78px] h-10 border rounded-[25px] mt-4 md:mt-0 cursor-pointer"
+                onClick={() => {
+                  setSelectedLink(data);
+                  setEditOpen(true);
+                }}
+              >
+                <p className="text-[#002847] text-base">Edit</p>
+                <EditIcon />
+              </button>
             </div>
           ))}
         </div>
       )}
+
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent className="lg:!max-w-[900px] w-full lg:h-auto h-[500px] overflow-auto">
+          <DialogHeader>
+            <DialogDescription>
+              {selectedLink && (
+                <EditLinks linkData={selectedLink} onSuccess={handleEditSuccess} />
+              )}
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
