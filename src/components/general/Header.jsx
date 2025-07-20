@@ -10,17 +10,17 @@ const Header = () => {
         <img src={logo} alt="logo" />
         <div className="flex items-center md:gap-6 gap-1">
           <div>
-            <h1 className="text-[#000000] md:text-xl md:font-semibold">
+            <h1 className="text-[#000000] md:text-xl text-xs md:font-semibold">
               {user?.name}
             </h1>
-            <p className="text-[#979797] md:text-lg md:font-semibold">
+            <p className="text-[#979797] md:text-lg text-xs md:font-semibold">
               {user?.email}
             </p>
           </div>
           <img
             src={user?.image?.url || profile}
             alt="Profile"
-            className="w-[72px] h-[72px] rounded-full object-cover"
+            className="md:w-[72px] w-10 md:h-[72px] h-10 rounded-full object-cover"
           />
         </div>
       </div>

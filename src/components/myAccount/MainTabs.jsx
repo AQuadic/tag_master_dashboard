@@ -12,6 +12,7 @@ const MainTabs = () => {
                         <TabsTrigger value="manageLinks">Manage links</TabsTrigger>
                         <TabsTrigger value="manageTheme">Manae theme</TabsTrigger>
                     </TabsList>
+                    <div className="w-full h-px bg-[#9C9C9C]"></div>
                     <TabsContent value="edit">
                         <div>
                             <EditProfile />
