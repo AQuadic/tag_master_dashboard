@@ -7,21 +7,23 @@ export const analyticsData = [
     {
             icon: Eye,
             title: "Total Views",
-            value: "325",
+            dataKey: "view",
+            value: 325,
             percentage: 75,
             changeText: "Compared to last week",
             changeColor: "#009F32",
             progressBarColor: "#007EC1",
-            arrowIcon: UpArrow
+            arrowIcon: UpArrow,
         },
         {
             icon: Hand,
             title: "Total Clicks",
-            value: "132",
+            dataKey: "click",
+            value: 132,
             percentage: 25,
             changeText: "Compared to last week",
             changeColor: "#9D00A6",
             progressBarColor: "#9D00A6",
-            arrowIcon: PurpleArrow
+            arrowIcon: PurpleArrow,
         },
     ]

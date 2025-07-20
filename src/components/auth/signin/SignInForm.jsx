@@ -30,7 +30,7 @@ const SignInForm = () => {
         Cookies.set("Tag_master_admin", response.token, { path: "/" });
       }
 
-      toast.success("تم تسجيل الدخول بنجاح");
+      toast.success("You have successfully logged in");
       navigate("/dashboard");
     } catch (err) {
       const msg =

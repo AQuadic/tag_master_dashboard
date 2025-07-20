@@ -11,7 +11,6 @@ const AnalyticsCard = ({
   value,
   percentage,
   changeText,
-  changeColor,
   progressBarColor = "#007EC1",
   arrowIcon: ArrowIcon,
   startDate,
@@ -22,6 +21,7 @@ const AnalyticsCard = ({
     queryKey: ["analytics", startDate, endDate],
     queryFn: () => getAnalytics(startDate, endDate),
     enabled: !!startDate && !!endDate,
+    staleTime: 1000 * 60 * 5,
   });
 
   console.log("Analytics data:", analytics);
@@ -31,15 +31,9 @@ const AnalyticsCard = ({
   let displayValue = value;
   let displayPercentage = percentage;
 
-  if (analytics) {
-    // Map card titles to the correct API data
-    if (title === "Total Views" && analytics.view) {
-      displayValue = analytics.view.this_period || value;
-      displayPercentage = analytics.view.change || percentage;
-    } else if (title === "Total Clicks" && analytics.click) {
-      displayValue = analytics.click.this_period || value;
-      displayPercentage = analytics.click.change || percentage;
-    }
+  if (analytics && dataKey && analytics[dataKey]) {
+    displayValue = analytics[dataKey].this_period ?? value;
+    displayPercentage = analytics[dataKey].change ?? percentage;
   }
 
   if (isLoading) {
@@ -52,6 +46,8 @@ const AnalyticsCard = ({
       </div>
     );
   }
+
+  const percentagePosition = Math.min(Math.max(Math.abs(displayPercentage), 0), 100);
 
   return (
     <div
@@ -67,11 +63,15 @@ const AnalyticsCard = ({
       <p className="text-[#000000] text-2xl font-medium mt-3.5">
         {displayValue}
       </p>
-      <div className="flex items-center gap-4 mt-3">
+      <div className="flex items-center gap-4 mt-8">
         <div className="flex-1 md:min-w-48 relative">
           <div
-            className="absolute -top-8 right-12 bg-[#FFFFFF] text-black text-xs px-2 py-1 rounded-md"
-            style={{ boxShadow: "1px 1px 2px 0px #0000004D" }}
+            className="absolute -top-8 bg-[#FFFFFF] text-black text-xs px-2 py-1 rounded-md"
+            style={{
+              boxShadow: "1px 1px 2px 0px #0000004D",
+              left: `${percentagePosition}%`,
+              transform: "translateX(-50%)",
+            }}
           >
             {Math.abs(displayPercentage)}%
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-gray-700"></div>
@@ -104,6 +104,25 @@ const AnalyticsCard = ({
 };
 
 const AnalyticsDashboard = ({ startDate, endDate }) => {
+  const { data: analytics = {}, isLoading } = useQuery({
+    queryKey: ["analytics", startDate, endDate],
+    queryFn: () => getAnalytics(startDate, endDate),
+    enabled: !!startDate && !!endDate,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const totalViews = analytics.view?.this_period ?? 0;
+  const totalClicks = analytics.click?.this_period ?? 0;
+  const conversionRate = totalViews > 0 ? (totalClicks / totalViews) * 100 : 0;
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-48">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-gray-900"></div>
+      </div>
+    );
+  }
+
   return (
     <section className="mt-12 flex flex-wrap items-center gap-6">
       <div className="flex flex-wrap gap-6">
@@ -115,7 +134,6 @@ const AnalyticsDashboard = ({ startDate, endDate }) => {
             value={data.value}
             percentage={data.percentage}
             changeText={data.changeText}
-            changeColor={data.changeColor}
             progressBarColor={data.progressBarColor}
             arrowIcon={data.arrowIcon}
             startDate={startDate}
@@ -138,8 +156,10 @@ const AnalyticsDashboard = ({ startDate, endDate }) => {
           </p>
         </div>
         <div className="mt-[11px] flex items-center justify-around">
-          <p className="text-[#000000] text-[32px] font-medium">25%</p>
-          <CircularProgress />
+          <p className="text-[#000000] text-[32px] font-medium">
+            {conversionRate.toFixed(2)}%
+          </p>
+          <CircularProgress progress={conversionRate} />
         </div>
         <div className="flex items-center justify-around mt-2">
           <div className="flex items-center gap-2">
